@@ -8,6 +8,8 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 ### Concepts
 
+A picture.
+
                    +-------------+       
                    |             |       
                    | Environment |       
