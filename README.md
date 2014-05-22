@@ -33,7 +33,6 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
              | TIER |  | TIER |  | TIER |
              |      |  |      |  |      |
              +------+  +------+  +--+---+
-                |               
     +--------+------++-+------+--+--+    
     |                |              |    
     |                |              |    
@@ -43,6 +42,7 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 | MACHINE |    | MACHINE |    | MACHINE |
 |         |    |         |    |         |
 +---------+    +---------+    +---------+
+
 
 ### Environment
 
