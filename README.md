@@ -1,9 +1,8 @@
-imperator
-=========
+# imperator
 
-Environment
------------
+### Environment
 
+```node
 {
   "environment": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
@@ -18,3 +17,4 @@ Environment
     }
   }
 }
+```
