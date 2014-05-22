@@ -1,4 +1,13 @@
-# imperator
+# IMPERATOR
+
+This is the cloud CnC solution for sphonic clouds in the JPC and SDC environments.
+
+It is designed to be simple, small and flexible. Unlike OpenStack and others.
+
+It is written in NodeJS. It is to be extended as required. Don't be precious about it.
+
+### Concepts
+
 
 ### Environment
 
