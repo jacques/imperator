@@ -8,7 +8,7 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 ### Concepts
 
-```node
+```asciidoc
    +------+    
    |      |    
    | USER |    
@@ -57,7 +57,7 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 This configuration container holds information about a user of Imperator.
 
-```node
+```json
 {
   "user": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
@@ -84,7 +84,7 @@ It contains a link to a security database where a users environmental credential
 
 It contains a link to the platforms a user has access to.
 
-```node
+```json
 {
   "environment": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
@@ -105,7 +105,7 @@ It contains a link to the platforms a user has access to.
 
 This configuration container holds infomation about the makeup of each platform within the Environment.
 
-```node
+```json
 {
   "platform": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
@@ -126,7 +126,7 @@ It identifies the home network for the machines on this tier.
 
 It identifies the network ACL's for the machines on this tier.
 
-```node
+```json
 {
   "tier": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
@@ -174,7 +174,7 @@ It contains information about any shutdown events on the machine.
 It contains information about the destruction of the machine.
 
 
-```node
+```json
 {
   "machine": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
