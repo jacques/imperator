@@ -13,12 +13,12 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
    |      |    
    | USER |    
    |      |    
-   +--+---+    
-      |        
-      |        
-      |        
-      |        
-+-----+-------+
+   +---+--+    
+       |       
+       |       
+       |       
+       |       
++------+------+
 |             |
 | Environment |
 |             |
@@ -35,27 +35,29 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
        |       
        |       
        |       
-   +---+--+    
-   |      |    
-   | TIER |    
-   |      |    
-   +--+---+    
-      |        
-      |        
-      |        
-      |        
-      |        
-  +---+-----+  
+    +--+---+   
+    |      |   
+    | TIER |   
+    |      |   
+    +--+---+   
+       |       
+       |       
+       |       
+       |       
+       |       
+  +----+----+  
   |         |  
   | MACHINE |  
   |         |  
   +---------+  
-
 ```
 
 ### User
 
-This configuration container holds information about a user of Imperator.
+This container holds information about a user of Imperator. Examples of fields required can be seen
+in the json example below. We must also integrate DUOSEC 2FA into the security for this solution.
+The DUOSEC integration API can be found at https://www.duosecurity.com/api.
+
 
 ```json
 {
@@ -75,6 +77,19 @@ This configuration container holds information about a user of Imperator.
   }
 }
 ```
+
+The roles are the system actions which this user is permitted to perform.
+
+* Add new users
+* Suspend users (users can be reactivated)
+* Tombstone users (users can not be reactivated)
+* Create Environment configuration
+* Create Platform configurations
+* Create Tier configurations
+* Create Machine configurations
+* CRUD for cfengine roles assignable to Tiers and Machines
+* CRUD for networks on the platform
+
 
 ### Environment
 
