@@ -74,6 +74,11 @@ The DUOSEC integration API can be found at https://www.duosecurity.com/api.
       "environment_1": "",
       "environment_2": ""
     }
+    "platforms": {
+      "platform_uudi_here": {
+        ""
+      }
+    }
   }
 }
 ```
@@ -100,7 +105,6 @@ A unique UUID identifies the particular environment to the system. It has a comm
 firendly name. There is also a system name where only alphanums and the underscore character are
 allowed. A list of platform UUIDs which associate platforms with this ENVIRONMENT is also present.
 
-A credentials section lists
 ```json
 {
   "environment": {
