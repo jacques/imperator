@@ -93,24 +93,23 @@ The roles are the system actions which this user is permitted to perform.
 
 ### Environment
 
-This configuration container holds information about which environment we are dealing with.
+The ENVIRONMENT container holds information about a particular cloud environment. There is only
+one per environment and access is restricted by whatever is set at the USER level.
 
-It contains a link to a security database where a users environmental credentials are securely held.
+A unique UUID identifies the particular environment to the system. It has a common name, a user
+firendly name. There is also a system name where only alphanums and the underscore character are
+allowed. A list of platform UUIDs which associate platforms with this ENVIRONMENT is also present.
 
-It contains a link to the platforms a user has access to.
-
+A credentials section lists
 ```json
 {
   "environment": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "name": "SPN Joyent BAU Production",
-    "credentials": {
-      "uuid": "linked_credentials_uuid_here",
-      "sdc_account": "account_name_here",
-      "sdc_url": "api_url_here"
-    },
+    "name": "SPN Joyent Amsterdam 1",
+    "system_name": "spn_joyent_amsterdam_1"
     "platforms": {
-      "list_of_platforms_here": {}
+      "platform_uuid_1": "uuid_here",
+      "platform_uuid_n": "uuid_here"
     }
   }
 }
@@ -118,14 +117,16 @@ It contains a link to the platforms a user has access to.
 
 ### Platforms
 
-This configuration container holds infomation about the makeup of each platform within the Environment.
+The PLATFORM container holds information about a logical platform within an ENVIRONMENT. Each
+platform has a unique UUID which identifies in within Imperator. There is a common name which is
+user friendly as well as a system name which is machine friendly.
 
 ```json
 {
   "platform": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "name": "BAU PRODUCTION",
-    "alias": "bau_production",
+    "common_name": "Sphonic BAU Production",
+    "system_name": "sphonic_bau_production"
     "tiers": {
       "list_of_tiers_here": {}
     }
