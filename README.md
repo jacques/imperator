@@ -44,6 +44,18 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
   +---------+  
 ```
 
+### Action
+
+# Create a USER
+
+# Create an ENVIRONMENT
+
+# Create a PLATFORM
+
+# Create a TIER
+
+# Create a MACHINE
+
 ### User
 
 This container holds information about a user of Imperator. Examples of fields required can be seen
