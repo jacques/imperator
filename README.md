@@ -44,7 +44,7 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
   +---------+  
 ```
 
-### Action
+## Actions
 
 #### Create a USER
 
@@ -63,6 +63,8 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 #### Create a NETWORK CONFIG
 
 #### Create a BOOTSTRAP SCRIPT
+
+#### Create a ROLE
 
 
 ## User
