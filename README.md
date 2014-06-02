@@ -6,7 +6,7 @@ It is designed to be simple, small and flexible. Unlike OpenStack and others.
 
 It is written in NodeJS. It is to be extended as required. Don't be precious about it.
 
-### Concepts
+## Concepts
 
 ```asciidoc
    +------+    
@@ -65,7 +65,7 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 #### Create a BOOTSTRAP SCRIPT
 
 
-### User
+## User
 
 This container holds information about a user of Imperator. Examples of fields required can be seen
 in the json example below. We must also integrate DUOSEC 2FA into the security for this solution.
