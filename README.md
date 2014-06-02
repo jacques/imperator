@@ -110,7 +110,7 @@ allowed. A list of platform UUIDs which associate platforms with this ENVIRONMEN
 {
   "environment": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "name": "Joyent Public Cloud AMS 1,
+    "name": "Joyent Public Cloud AMS 1",
     "system_name": "joyent_public_cloud_ams_1"
     "platforms": {
       "platform_uuid_1": "uuid_here",
@@ -154,8 +154,10 @@ It identifies the network ACL's for the machines on this tier.
     "name": "xml_processing_tier",
     "alias": "XML Processing Tier",
     "home_network": "network_uuid_here",
-    "base_image": "base_image_uuid_here",
-    "cfengine_promise_package": "promise_package_uuid",
+    "base_image": "base_image_uuid",
+    "personas_package": "personas_package_uuid",
+    "bootstrap_script": "bootstrap_script_name",
+    "stingray_pool": "stingray_pool_name",
     "machines": {
       "list_of_machines_here": {}
     },
@@ -201,14 +203,16 @@ It contains information about the destruction of the machine.
 {
   "machine": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "roles": {
-      "cfe_role_name_1": {},
-      "cfe_role_name_n": {}
-    },
     "creation_information": {
       "created_date_time": {},
       "created_user": {},
       "created_method": {}
+    },
+    "start_information": {
+      "start_event_uuid": {},
+      "start_user": {},
+      "start_method": {},
+      "start_reason_given": {}
     },
     "shutdown_information": {
       "shutdown_event_uuid": {},
