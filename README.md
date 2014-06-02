@@ -60,8 +60,6 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 #### Create a STINGRAY CONFIG 
 
-#### Create a NETWORK CONFIG
-
 #### Create a BOOTSTRAP SCRIPT
 
 #### Create a ROLE
