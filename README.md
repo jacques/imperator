@@ -14,36 +14,28 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
    | USER |    
    |      |    
    +---+--+    
-       |       
-       |       
-       |       
+       |         
        |       
 +------+------+
 |             |
 | Environment |
 |             |
 +------+------+
-       |       
-       |       
-       |       
+       |            
        |       
 +------+------+
 |             |
 |  PLATFORM   |
 |             |
 +------+------+
-       |       
-       |       
+       |          
        |       
     +--+---+   
     |      |   
     | TIER |   
     |      |   
     +--+---+   
-       |       
-       |       
-       |       
-       |       
+       |            
        |       
   +----+----+  
   |         |  
@@ -56,8 +48,9 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 This container holds information about a user of Imperator. Examples of fields required can be seen
 in the json example below. We must also integrate DUOSEC 2FA into the security for this solution.
-The DUOSEC integration API can be found at https://www.duosecurity.com/api.
+The DUOSEC integration API can be found at https://www.duosecurity.com/api. Salted passwords please.
 
+Each user will have a specific SSH key which they must use to login to any boxes on a given PLATFORM. We must store these somewhere and we MUST NOT allow the same ssh key to be used in more that ONE PLATFORM.
 
 ```json
 {
@@ -75,9 +68,9 @@ The DUOSEC integration API can be found at https://www.duosecurity.com/api.
       "environment_2": ""
     }
     "platforms": {
-      "platform_uudi_here": {
-        ""
-      }
+      "platform_uuid_1",
+      "platform_uuid_2",
+      "platform_uuid_n"
     }
   }
 }
