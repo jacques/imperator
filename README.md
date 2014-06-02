@@ -60,14 +60,12 @@ Each user will have a specific SSH key which they must use to login to any boxes
     "encrypted_password": "",
     "two_factor_id": "",
     "roles": {
-      "system_role_1": "administrator",
-      "system_role_n": "can_create_cfe_roles"
+      "system_role_n": "IMPERATOR_PLATFORM_ROLES_HERE",
     },
     "environments": {
       "environment_1": {
        "roles": {
-         "system_role_1": "administrator",
-         "system_role_n": "can_create_cfe_roles"
+         "system_role_1": "ENVIRONMENT_ROLES_HERE",
        },
       },
       "environment_2": {
@@ -76,9 +74,11 @@ Each user will have a specific SSH key which they must use to login to any boxes
       }
     }
     "platforms": {
-      "platform_uuid_1",
-      "platform_uuid_2",
-      "platform_uuid_n"
+      "platform_uuid_1":{
+        "roles":{
+
+        }
+      }
     }
   }
 }
@@ -110,8 +110,8 @@ allowed. A list of platform UUIDs which associate platforms with this ENVIRONMEN
 {
   "environment": {
     "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "name": "SPN Joyent Amsterdam 1",
-    "system_name": "spn_joyent_amsterdam_1"
+    "name": "Joyent Public Cloud AMS 1,
+    "system_name": "joyent_public_cloud_ams_1"
     "platforms": {
       "platform_uuid_1": "uuid_here",
       "platform_uuid_n": "uuid_here"
@@ -154,6 +154,8 @@ It identifies the network ACL's for the machines on this tier.
     "name": "xml_processing_tier",
     "alias": "XML Processing Tier",
     "home_network": "network_uuid_here",
+    "base_image": "base_image_uuid_here",
+    "cfengine_promise_package": "promise_package_uuid",
     "machines": {
       "list_of_machines_here": {}
     },
