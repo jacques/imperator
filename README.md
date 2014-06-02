@@ -71,8 +71,16 @@ The DUOSEC integration API can be found at https://www.duosecurity.com/api.
       "system_role_n": "can_create_cfe_roles"
     },
     "environments": {
-      "environment_1": "",
-      "environment_2": ""
+      "environment_1": {
+       "roles": {
+         "system_role_1": "administrator",
+         "system_role_n": "can_create_cfe_roles"
+       },
+      },
+      "environment_2": {
+       "roles": {
+       },
+      }
     }
     "platforms": {
       "platform_uudi_here": {
