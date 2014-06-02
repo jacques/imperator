@@ -64,8 +64,16 @@ Each user will have a specific SSH key which they must use to login to any boxes
       "system_role_n": "can_create_cfe_roles"
     },
     "environments": {
-      "environment_1": "",
-      "environment_2": ""
+      "environment_1": {
+       "roles": {
+         "system_role_1": "administrator",
+         "system_role_n": "can_create_cfe_roles"
+       },
+      },
+      "environment_2": {
+       "roles": {
+       },
+      }
     }
     "platforms": {
       "platform_uuid_1",
