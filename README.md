@@ -56,6 +56,15 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 #### Create a MACHINE
 
+#### Create a PERSONA PACKAGE
+
+#### Create a STINGRAY CONFIG 
+
+#### Create a NETWORK CONFIG
+
+#### Create a BOOTSTRAP SCRIPT
+
+
 ### User
 
 This container holds information about a user of Imperator. Examples of fields required can be seen
@@ -169,6 +178,7 @@ It identifies the network ACL's for the machines on this tier.
     "base_image": "base_image_uuid",
     "personas_package": "personas_package_uuid",
     "bootstrap_script": "bootstrap_script_name",
+    "stingray_server": "stingray_uuid",
     "stingray_pool": "stingray_pool_name",
     "machines": {
       "list_of_machines_here": {}
@@ -196,6 +206,8 @@ It identifies the network ACL's for the machines on this tier.
   }
 }
 ```
+
+Pull stingray pool names from the stingray machine.
 
 ### Machines
 
@@ -241,3 +253,13 @@ It contains information about the destruction of the machine.
   }
 }
 ```
+
+### Stingray Configuration Package
+
+This configuration container holds information about various stingray machines.
+
+Username
+Password
+API REST Endpoint
+etc.
+
