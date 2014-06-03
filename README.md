@@ -207,7 +207,7 @@ It identifies the network ACL's for the machines on this tier.
 }
 ```
 
-Pull stingray pool names from the stingray machine.
+Pull stingray pool names from the stingray machine. API https://support.riverbed.com/content/support/software/stingray/traffic-manager.html .
 
 ### Machines
 
