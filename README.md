@@ -263,3 +263,7 @@ Password
 API REST Endpoint
 etc.
 
+
+## Related Work
+* [Disnix](http://sandervanderburg.blogspot.co.uk/2011/02/disnix-toolset-for-distributed.html). Building on the powerful Nix functional package system, Disnix has an interesting set of three models: Services, which describes the components of the distributed system including dependencies, Machines which describes the resources available to the system, and Distribution, which describes the mapping between the two.
+* [Collins](http://tumblr.github.io/collins/), developed at Tumblr, use explained in this [Ansible at Twitter](https://www.youtube.com/watch?v=fwGrKXzocg4?t=14m30s) talk, as a "Single Point of Truth (SPOT)" machine database.
