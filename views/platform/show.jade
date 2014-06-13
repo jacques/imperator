@@ -1,5 +1,11 @@
 extends ../layout
 
+block append breadcrumbs
+	ol.breadcrumb
+		li
+			a(href='/environment/#{platform.environment.id}')= platform.environment.name
+		li.active= platform.name
+
 block content
 	h1 Platform
 

@@ -1,5 +1,9 @@
 extends ../layout
 
+block append breadcrumbs
+	ol.breadcrumb
+		li.active= environment.name
+
 block content
 	h1 Environment
 

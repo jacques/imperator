@@ -1,5 +1,13 @@
 extends ../layout
 
+block append breadcrumbs
+	ol.breadcrumb
+		li
+			a(href='/environment/#{tier.environment.id}')= tier.environment.name
+		li
+			a(href='/platform/#{tier.platform.id}')= tier.platform.name
+		li.active= tier.name
+
 block content
 	h1 Tier
 

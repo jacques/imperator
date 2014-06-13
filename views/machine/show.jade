@@ -1,5 +1,17 @@
 extends ../layout
 
+block append breadcrumbs
+	ol.breadcrumb
+		li
+			a(href='/environment/#{machine.environment.id}')= machine.environment.name
+		if machine.tier
+			if machine.platform
+				li
+					a(href='/platform/#{machine.platform.id}')= machine.platform.name
+			li
+				a(href='/tier/#{machine.tier.id}')= machine.tier.name
+		li.active= machine.name
+
 block content
 	h1 Machine
 
