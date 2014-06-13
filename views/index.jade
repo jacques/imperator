@@ -3,6 +3,17 @@ extends layout
 block content
 	h1 Index
 
+	h3 Routes
+	dl
+		dd
+			a(href='/environment') Environments
+		dd
+			a(href='/platform') Platforms
+		dd
+			a(href='/tier') Tiers
+		dd
+			a(href='/machine') Machines
+
 	if user
 		dl
 			dt Id
