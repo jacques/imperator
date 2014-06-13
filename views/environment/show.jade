@@ -12,3 +12,15 @@ block content
 		dd= environment.name
 		dt Id
 		dd= environment.id
+
+	h3 Platforms
+	if platforms.length
+		dl
+			each platform in platforms
+				dd
+					a(href='/platform/#{platform.id}')= platform.name
+	else
+		p
+			strong There are no available platforms
+	p
+		a.btn.btn-default(href='/platform/new?environment=#{environment.id}') Add
