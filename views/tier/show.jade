@@ -24,3 +24,13 @@ block content
 			dt Environment
 			dd
 				a(href='/environment/#{tier.environment.id}')= tier.environment.name
+
+	h3 Machines
+	if machines.length
+		dl
+			each machine in machines
+				dd
+					a(href='/machine/#{machine.id}')= machine.name
+	else
+		p
+			strong There are no available machines
