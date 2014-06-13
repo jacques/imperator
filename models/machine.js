@@ -1,5 +1,6 @@
 'use strict';
 
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mongoose_uuid = require('mongoose-uuid');
 var uuid = require('uuid');
@@ -47,6 +48,7 @@ function machineModel () {
     },
     created: { type: Date, index: true },
     updated: { type: Date, index: true },
+    tags: {},
 
     // internal fields
     environment: { type: String, ref: 'Environment', index: true },
@@ -62,6 +64,10 @@ function machineModel () {
   machineSchema.pre('save', function (next) {
     var machine = this;
 
+    if (!machine.tags) {
+      machine.tags = {};
+    }
+
     if (machine.system_name && machine.system_name.length > 0) {
       next();
       return;
@@ -71,6 +77,37 @@ function machineModel () {
 
     next();
   });
+
+  machineSchema.methods.addTag = function (name, value) {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    this.populate('environment', function (err, machine) {
+      var cloud = machine.environment.getCompute();
+
+      if (!machine.tags) {
+        machine.tags = {};
+      }
+
+      machine.tags[name] = value;
+
+      cloud.addMachineTags(machine.machine_uuid, machine.tags, function (err, obj) {
+        if (err) {
+          deferred.reject(err);
+        } else {
+          machine.save(function (err, machine) {
+            if (err) {
+              deferred.reject(err);
+            } else {
+              deferred.resolve(machine);
+            }
+          });
+        }
+      });
+    });
+
+    return deferred.promise;
+  };
 
   return mongoose.model('Machine', machineSchema);
 }

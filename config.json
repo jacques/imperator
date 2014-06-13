@@ -40,7 +40,7 @@
     },
     "machine": {
       "mount": "/machine",
-      "controllers": [ "inventory/machine" ]
+      "controllers": [ "inventory/machine", "inventory/machine_actions" ]
     }
   },
   "tasks": [

@@ -34,3 +34,14 @@ block content
 			dt Environment
 			dd
 				a(href='/environment/#{machine.environment.id}')= machine.environment.name
+
+	if !machine.tier && tiers.length
+		h4 This machine is not linked to any tier
+		form(action='/machine/#{machine.id}/set_tier', method='POST')
+			.form-group
+				select(name='tier')
+					each tier in tiers
+						option(value='#{tier.id}')= tier.name
+
+			.form-group
+				input.btn.btn-default(type='submit', value='link to Tier')
