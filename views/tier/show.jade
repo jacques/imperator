@@ -9,6 +9,10 @@ block append breadcrumbs
 		li.active= tier.name
 
 block content
+	if machines.length === 0
+		.btn-group.pull-right
+			a.btn.btn-danger.btn-sm(href='/tier/#{tier.id}', data-confirm='Delete tier?', data-method='DELETE') Delete
+
 	h1 Tier
 
 	dl

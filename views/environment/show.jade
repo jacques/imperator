@@ -5,6 +5,10 @@ block append breadcrumbs
 		li.active= environment.name
 
 block content
+	if platforms.length === 0
+		.btn-group.pull-right
+			a.btn.btn-danger.btn-sm(href='/environment/#{environment.id}', data-confirm='Delete environment?', data-method='DELETE') Delete
+
 	h1 Environment
 
 	dl
