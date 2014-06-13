@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	h1 Tiers
+
+	if tiers
+		dl
+			each tier in tiers
+				dt= tier.name
+				dd
+					a(href='/tier/#{tier.id}')= tier.id
+			else
+				dt There are currently no tiers
+		.btn-group
+			a.btn.btn-default(href='/tier/new?environment=#{req.param("environment")}&platform=#{req.param("platform")}') create new

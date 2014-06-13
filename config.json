@@ -13,7 +13,8 @@
   "models": [
     "user",
     "environment",
-    "platform"
+    "platform",
+    "tier"
   ],
   "routes": {
     "dashboard": {
@@ -31,6 +32,10 @@
     "platform": {
       "mount": "/platform",
       "controllers": [ "inventory/platform" ]
+    },
+    "tier": {
+      "mount": "/tier",
+      "controllers": [ "inventory/tier" ]
     }
   }
 }

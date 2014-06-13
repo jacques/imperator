@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+	h1 Create tier
+
+	form(action='/tier', method='POST')
+		input(type='hidden', name='environment', value='#{req.param("environment")}')
+		input(type='hidden', name='platform', value='#{req.param("platform")}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='')
+			dt Base Image
+			dd
+				input(type='text', name='base_image', value='')
+			dt Home Network
+			dd
+				input(type='text', name='home_network', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

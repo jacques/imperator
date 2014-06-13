@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	h1 Tier
+
+	dl
+		dt Name
+		dd= tier.name
+		dt Id
+		dd= tier.id
+		if tier.platform
+			dt Platform
+			dd
+				a(href='/platform/#{tier.platform.id}')= tier.platform.name
+		if tier.environment
+			dt Environment
+			dd
+				a(href='/environment/#{tier.environment.id}')= tier.environment.name
