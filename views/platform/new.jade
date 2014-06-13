@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h1 Create platform
+
+	form(action='/platform', method='POST')
+		input(type='hidden', name='environment', value='#{req.param("environment")}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

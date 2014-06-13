@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h1 Platform
+
+	dl
+		dt Name
+		dd= platform.name
+		dt Id
+		dd= platform.id
+		if platform.environment
+			dt Environment
+			dd
+				a(href='/environment/#{platform.environment.id}')= platform.environment.name

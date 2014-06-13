@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	h1 Platforms
+
+	if platforms
+		dl
+			each platform in platforms
+				dt= platform.name
+				dd
+					a(href='/platform/#{platform.id}')= platform.id
+			else
+				dt There are currently no platforms
+		.btn-group
+			a.btn.btn-default(href='/platform/new?environment=#{req.param("environment")}') create new
