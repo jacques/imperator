@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 
 module.exports = function (router) {
   var Platform = mongoose.models.Platform;
+  var Tier = mongoose.models.Tier;
 
   router.get('/', function (req, res) {
     Promise.props({
@@ -21,7 +22,8 @@ module.exports = function (router) {
 
   router.get('/:platform_id', function (req, res) {
     Promise.props({
-      platform: Platform.findOne({ _id: req.param('platform_id') }).populate('environment').exec()
+      platform: Platform.findOne({ _id: req.param('platform_id') }).populate('environment').exec(),
+      tiers: Tier.find({ platform: req.param('platform_id') }).exec()
     }).then(function (models) {
       res.render('platform/show', models);
     });

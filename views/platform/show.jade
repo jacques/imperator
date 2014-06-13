@@ -18,3 +18,15 @@ block content
 			dt Environment
 			dd
 				a(href='/environment/#{platform.environment.id}')= platform.environment.name
+
+	h3 Tiers
+	if tiers.length
+		dl
+			each tier in tiers
+				dd
+					a(href='/tier/#{tier.id}')= tier.name
+	else
+		p
+			strong There are no available tiers
+	p
+		a.btn.btn-default(href='/tier/new?environment=#{platform.environment.id}&platform=#{platform.id}') Add
