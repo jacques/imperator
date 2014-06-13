@@ -1,0 +1,32 @@
+include _mixins/flash-messages
+
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Imperator!
+    link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') Imperator!
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
+            block toolbar
+      block subbar
+
+    +flash-messages(messages)
+
+    .container
+      block content
+
+    block body_scripts
+      script(src="/components/jquery/dist/jquery.min.js")
+      script(src="/components/bootstrap/dist/js/bootstrap.min.js")

@@ -1,0 +1,26 @@
+{
+  "port": 3000,
+  "address": "0.0.0.0",
+  "mongoose": {
+    "url": "mongodb://localhost/imperator"
+  },
+  "session": {
+    "secret": "Imperator!",
+    "opts": {
+      "db": "imperator"
+    }
+  },
+  "models": [
+    "user"
+  ],
+  "routes": {
+    "dashboard": {
+      "mount": "/",
+      "controllers": [ "index" ]
+    },
+    "auth": {
+      "mount": "/",
+      "controllers": [ "auth" ]
+    }
+  }
+}

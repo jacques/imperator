@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+	h1 Login
+	form.col-sm-4(method='POST')
+		.form-group
+			label Username
+			input.form-control(name='username', type='text')
+		.form-group
+			label Password
+			input.form-control(name='password', type='password')
+		.form-group
+			button.btn.btn-default(type='submit') Login

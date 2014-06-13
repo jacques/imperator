@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	h1 Index
+
+	if user
+		dl
+			dt Id
+			dd= user.id
+			dt Username
+			dd= user.username
+			dt Password
+			dd= user.password
