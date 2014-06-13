@@ -11,7 +11,8 @@
     }
   },
   "models": [
-    "user"
+    "user",
+    "environment"
   ],
   "routes": {
     "dashboard": {
@@ -21,6 +22,10 @@
     "auth": {
       "mount": "/",
       "controllers": [ "auth" ]
+    },
+    "environment": {
+      "mount": "/environment",
+      "controllers": [ "inventory/environment" ]
     }
   }
 }
