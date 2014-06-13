@@ -14,7 +14,8 @@
     "user",
     "environment",
     "platform",
-    "tier"
+    "tier",
+    "machine"
   ],
   "routes": {
     "dashboard": {
@@ -36,6 +37,10 @@
     "tier": {
       "mount": "/tier",
       "controllers": [ "inventory/tier" ]
+    },
+    "machine": {
+      "mount": "/machine",
+      "controllers": [ "inventory/machine" ]
     }
   }
 }

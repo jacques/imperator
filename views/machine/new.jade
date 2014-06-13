@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+	h1 Create machine
+
+	form(action='/machine', method='POST')
+		input(type='hidden', name='environment', value='#{req.param("environment")}')
+		input(type='hidden', name='platform', value='#{req.param("platform")}')
+		input(type='hidden', name='tier', value='#{req.param("tier")}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{machine.name}')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

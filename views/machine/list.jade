@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	h1 Machines
+
+	if machines
+		dl
+			each machine in machines
+				dt= machine.name
+				dd
+					a(href='/machine/#{machine.id}')= machine.id
+			else
+				dt There are currently no machines
+		.btn-group
+			a.btn.btn-default(href='/machine/new?environment=#{req.param("environment")}&platform=#{req.param("platform")}&tier=#{req.param("tier")}') create new
