@@ -44,6 +44,8 @@ module.exports = function (router) {
         return;
       }
 
+      req.flash('success', 'Environment "%s" has been created', environment.name);
+
       res.redirect('/environment/' + environment.id);
     });
   });
@@ -54,7 +56,7 @@ module.exports = function (router) {
     }).then(function (models) {
       models.environment.remove();
 
-      req.flash('success', 'Environment "%s" has been delted', models.environment.name);
+      req.flash('success', 'Environment "%s" has been deleted', models.environment.name);
 
       res.redirect('/environment');
     });
