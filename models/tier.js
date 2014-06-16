@@ -11,6 +11,7 @@ function tierModel () {
     name: { type: String },
     system_name: { type: String },
     base_image: { type: String },
+    base_package: { type: String },
     home_network: { type: String }
   }, { _id: false, versionKey: false });
 

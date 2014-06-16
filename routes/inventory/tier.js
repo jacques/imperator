@@ -48,6 +48,7 @@ module.exports = function (router) {
       platform: req.param('platform'),
       name: req.param('name'),
       base_image: req.param('base_image'),
+      base_package: req.param('base_package'),
       home_network: req.param('home_network')
     });
 

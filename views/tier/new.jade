@@ -16,6 +16,12 @@ block content
 					option(valaue='') Select base image
 					each image in images
 						option(value='#{image.id}') #{image.name} - #{image.version}
+			dt Base Package
+			dd
+				select(name='base_package')
+					option(valaue='') Select base package
+					each package in packages
+						option(value='#{package.id}') #{package.name}
 			dt Home Network
 			dd
 				select(name='home_network')
