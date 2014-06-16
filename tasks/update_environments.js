@@ -53,6 +53,7 @@ module.exports = function updateEnvironments () {
                       environment: environment.id,
                       last_seen: Date.now(),
                       name: item.name,
+                      tags: item.tags,
                       machine_uuid: item.id,
                       created: item.created,
                       updated: item.updated,
@@ -63,6 +64,9 @@ module.exports = function updateEnvironments () {
 
                     if (item.state) {
                       m.state = item.state;
+                    }
+                    if (item.tags) {
+                      m.tags = item.tags;
                     }
                     m.created = item.created;
                     m.updated = item.updated;
