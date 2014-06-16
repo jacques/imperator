@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
+var uuid = require('uuid');
 
 
 module.exports = function (router) {
@@ -39,24 +40,22 @@ module.exports = function (router) {
       environment: req.param('environment'),
       platform: req.param('platform'),
       tier: req.param('tier'),
-      name: req.param('name')
+      name: req.param('name') || uuid.v4()
     });
 
-    machine.save(function (err) {
-      if (err) {
+    machine.create()
+      .then(function (machine) {
+        req.flash('success', 'Machine "%s" has been created', machine.name);
+
+        res.redirect('/machine/' + machine.id);
+      })
+      .catch(function (err) {
         res.render('error', {
           message: 'save failed',
           error: err,
           url: req.url
         });
-
-        return;
-      }
-
-      req.flash('success', 'Machine "%s" has been created', machine.name);
-
-      res.redirect('/machine/' + machine.id);
-    });
+      });
   });
 
   router.delete('/:machine_id', function (req, res) {

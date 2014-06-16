@@ -78,6 +78,93 @@ function machineModel () {
     next();
   });
 
+  machineSchema.methods.waitForState = function (state) {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    this.populate('environment tier', function (err, machine) {
+      var cloud = machine.environment.getCompute();
+
+      var _wait = setInterval(function() {
+        cloud.getMachine(machine.machine_uuid, function (err, obj) {
+          if (err) {
+            deferred.reject(err);
+          } else if (obj.state === state) {
+            clearInterval(_wait);
+
+            machine.state = obj.state;
+            machine.created = obj.created;
+            machine.updated = obj.updated;
+            machine.last_seen = Date.now();
+
+            deferred.resolve(machine);
+          }
+        });
+      }, 1000);
+    });
+
+    return deferred.promise;
+  };
+
+  machineSchema.methods.create = function () {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    this.populate('environment tier', function (err, machine) {
+      var cloud = machine.environment.getCompute();
+
+      if (!machine.tags) {
+        machine.tags = {};
+      }
+
+      if (!machine.tags['imperator_tier']) {
+        machine.tags['imperator_tier'] = machine.tier.id;
+      }
+
+      var opts = {
+        name: machine.name,
+        image: machine.tier.base_image,
+        package: machine.tier.base_package,
+        tags: machine.tags
+      };
+
+      cloud.createMachine(opts, function (err, obj) {
+        if (err) {
+          deferred.reject(err);
+        } else {
+          machine.machine_uuid = obj.id;
+          machine.managed = true;
+          machine.state = obj.state;
+          machine.created = obj.created;
+          machine.updated = obj.updated;
+          machine.last_seen = Date.now();
+
+          machine.save(function (err, machine) {
+            if (err) {
+              deferred.reject(err);
+            } else {
+              deferred.resolve(machine);
+            }
+          });
+
+          // wait for provisioning and add machine tags after it is out of provisioning state
+          machine.waitForState('running')
+            .then(function (machine) {
+              cloud.addMachineTags(machine.machine_uuid, machine.tags, function (err, obj) {
+                if (err) {
+                  console.err(err)
+                } else {
+                  machine.save(function (err, machine) {});
+                }
+              });
+            });
+        }
+      });
+    });
+
+    return deferred.promise;
+  };
+
   machineSchema.methods.addTag = function (name, value) {
     var machine = this;
     var deferred = Promise.pending();
