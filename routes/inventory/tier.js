@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 
 
 module.exports = function (router) {
+  var Environment = mongoose.models.Environment;
   var Tier = mongoose.models.Tier;
   var Machine = mongoose.models.Machine;
 
@@ -17,7 +18,19 @@ module.exports = function (router) {
   });
 
   router.get('/new', function (req, res) {
-    res.render('tier/new');
+    Promise.props({
+      environment: Environment.findOne({ _id: req.param('environment') }).exec(),
+    }).then(function (models) {
+      var cloud = models.environment.getCompute();
+
+      models.images = Promise.promisify(cloud.listImages, cloud)();
+      models.packages = Promise.promisify(cloud.listPackages, cloud)();
+      models.networks = Promise.promisify(cloud.listNetworks, cloud)();
+
+      Promise.props(models).then(function (models) {
+        res.render('tier/new', models);
+      });
+    });
   });
 
   router.get('/:tier_id', function (req, res) {

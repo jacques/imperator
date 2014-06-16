@@ -12,10 +12,16 @@ block content
 				input(type='text', name='name', value='')
 			dt Base Image
 			dd
-				input(type='text', name='base_image', value='')
+				select(name='base_image')
+					option(valaue='') Select base image
+					each image in images
+						option(value='#{image.id}') #{image.name} - #{image.version}
 			dt Home Network
 			dd
-				input(type='text', name='home_network', value='')
+				select(name='home_network')
+					option(valaue='') Select home network
+					each network in networks
+						option(value='#{network.id}') #{network.name}
 
 		.btn-group
 			input.btn.btn-default(type='submit', value='Save')
