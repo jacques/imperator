@@ -13,6 +13,9 @@ block append breadcrumbs
 		li.active= machine.name
 
 block content
+	.btn-group.pull-right
+		a.btn.btn-danger.btn-sm(href='/machine/#{machine.id}', data-confirm='Delete machine?', data-method='DELETE') Delete
+
 	h1 Machine
 
 	dl

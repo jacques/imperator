@@ -165,6 +165,33 @@ function machineModel () {
     return deferred.promise;
   };
 
+  machineSchema.methods.delete = function () {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    this.populate('environment tier', function (err, machine) {
+      var cloud = machine.environment.getCompute();
+
+      cloud.deleteMachine(machine.machine_uuid, function (err, obj) {
+        if (err) {
+          deferred.reject(err);
+        } else {
+          machine.state = 'destroyed';
+
+          machine.save(function (err, machine) {
+            if (err) {
+              deferred.reject(err);
+            } else {
+              deferred.resolve(machine);
+            }
+          });
+        }
+      });
+    });
+
+    return deferred.promise;
+  };
+
   machineSchema.methods.addTag = function (name, value) {
     var machine = this;
     var deferred = Promise.pending();

@@ -62,11 +62,27 @@ module.exports = function (router) {
     Promise.props({
       machine: Machine.findOne({ _id: req.param('machine_id') }).exec()
     }).then(function (models) {
-      models.machine.remove();
+      if (models.machine.state === 'destroyed') {
+        models.machine.remove(function (err) {
+          req.flash('success', 'Machine "%s" has been removed from database', models.machine.name);
 
-      req.flash('success', 'Machine "%s" has been deleted', models.machine.name);
+          res.redirect('/tier/' + models.machine.tier);
+        });
+      } else {
+        models.machine.delete()
+          .then(function (machine) {
+            req.flash('success', 'Machine "%s" has been deleted', models.machine.name);
 
-      res.redirect('/machine');
+            res.redirect('/machine/' + machine.id);
+          })
+          .catch(function (err) {
+            res.render('error', {
+              message: 'delete failed',
+              error: err,
+              url: req.url
+            });
+          });
+      }
     });
   });
 };
