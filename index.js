@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 var express = require('express');
 var morgan = require('morgan');
 
-var bootstrap = require('./lib/bootstrap');
+var bootstrap = require('./lib/system/bootstrap');
 
 var app = express();
 var options = {
