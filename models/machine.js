@@ -124,9 +124,13 @@ function machineModel () {
       var opts = {
         name: machine.name,
         image: machine.tier.base_image,
-        package: machine.tier.base_package,
-        tags: machine.tags
+        package: machine.tier.base_package
       };
+
+      var k;
+      for (k in machine.tags) {
+        opts['tag.' + k] = machine.tags[k];
+      }
 
       cloud.createMachine(opts, function (err, obj) {
         if (err) {
@@ -146,18 +150,6 @@ function machineModel () {
               deferred.resolve(machine);
             }
           });
-
-          // wait for provisioning and add machine tags after it is out of provisioning state
-          machine.waitForState('running')
-            .then(function (machine) {
-              cloud.addMachineTags(machine.machine_uuid, machine.tags, function (err, obj) {
-                if (err) {
-                  console.err(err)
-                } else {
-                  machine.save(function (err, machine) {});
-                }
-              });
-            });
         }
       });
     });
