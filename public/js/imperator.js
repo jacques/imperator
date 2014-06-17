@@ -73,3 +73,9 @@
     }
   });
 })(jQuery);
+
+(function ($) {
+  $('.date-from-now').text(function (idx, text) {
+    return moment(text).fromNow();
+  });
+})(jQuery);
