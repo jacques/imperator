@@ -18,33 +18,41 @@ block content
 
 	h1 Machine
 
-	dl
-		dt Name
-		dd= machine.name
-		dt State
-		dd= machine.state
-		dt Id
-		dd= machine.id
-		if machine.tier
-			dt Tier
-			dd
-				a(href='/tier/#{machine.tier.id}')= machine.tier.name
-		if machine.platform
-			dt Platform
-			dd
-				a(href='/platform/#{machine.platform.id}')= machine.platform.name
-		if machine.environment
-			dt Environment
-			dd
-				a(href='/environment/#{machine.environment.id}')= machine.environment.name
+	.col-md-8
+		dl
+			dt Name
+			dd= machine.name
+			dt State
+			dd= machine.state
+			dt Id
+			dd= machine.id
+			if machine.tier
+				dt Tier
+				dd
+					a(href='/tier/#{machine.tier.id}')= machine.tier.name
+			if machine.platform
+				dt Platform
+				dd
+					a(href='/platform/#{machine.platform.id}')= machine.platform.name
+			if machine.environment
+				dt Environment
+				dd
+					a(href='/environment/#{machine.environment.id}')= machine.environment.name
 
-	if !machine.tier && tiers.length
-		h4 This machine is not linked to any tier
-		form(action='/machine/#{machine.id}/set_tier', method='POST')
-			.form-group
-				select(name='tier')
-					each tier in tiers
-						option(value='#{tier.id}')= tier.name
+		if !machine.tier && tiers.length
+			h4 This machine is not linked to any tier
+			form(action='/machine/#{machine.id}/set_tier', method='POST')
+				.form-group
+					select(name='tier')
+						each tier in tiers
+							option(value='#{tier.id}')= tier.name
 
-			.form-group
-				input.btn.btn-default(type='submit', value='link to Tier')
+				.form-group
+					input.btn.btn-default(type='submit', value='link to Tier')
+
+	.col-md-4
+		each ev in machine.events
+			dl
+				dt= ev.type
+				dt.date-from-now= ev.timestamp
+				dd= ev.message

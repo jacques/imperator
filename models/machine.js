@@ -32,6 +32,8 @@ function machineModel () {
 
   machineEventSchema.plugin(mongoose_uuid.plugin, 'MachineEvent');
 
+  var MachineEvent = mongoose.model('MachineEvent', machineEventSchema);
+
   var machineSchema = mongoose.Schema({
     name: { type: String, default: uuid.v4 },
     machine_uuid: { type: String },
@@ -77,6 +79,32 @@ function machineModel () {
 
     next();
   });
+
+  machineSchema.methods.addEvent = function (type, message, meta) {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    if (!meta) {
+      meta = {};
+    }
+
+    machine.events.unshift(new MachineEvent({
+      type: type,
+      timestamp: new Date(),
+      message: message,
+      meta: meta
+    }));
+
+    machine.save(function (err, machine) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(machine);
+      }
+    });
+
+    return deferred.promise;
+  };
 
   machineSchema.methods.waitForState = function (state) {
     var machine = this;
@@ -132,6 +160,12 @@ function machineModel () {
         opts['tag.' + k] = machine.tags[k];
       }
 
+      deferred.promise.then(function (machine) {
+        machine.addEvent(
+          'start',
+          'machine created in tier "' + machine.tier.name + '"');
+      });
+
       cloud.createMachine(opts, function (err, obj) {
         if (err) {
           deferred.reject(err);
@@ -160,6 +194,12 @@ function machineModel () {
   machineSchema.methods.delete = function () {
     var machine = this;
     var deferred = Promise.pending();
+
+    deferred.promise.then(function (machine) {
+      machine.addEvent(
+        'destruct',
+        'machine destroyed');
+    });
 
     this.populate('environment tier', function (err, machine) {
       var cloud = machine.environment.getCompute();
