@@ -1,0 +1,27 @@
+extends ../layout
+
+block append breadcrumbs
+	ol.breadcrumb
+		li
+			a(href='/environment/#{stingray.environment.id}')= stingray.environment.name
+		li.active= stingray.name
+
+block content
+	.btn-group.pull-right
+		a.btn.btn-danger.btn-sm(href='/platform/#{stingray.id}', data-confirm='Delete platform?', data-method='DELETE') Delete
+
+	h1 Stingray
+
+	dl
+		dt Name
+		dd= stingray.name
+		dt URL
+		dd= stingray.url
+		dt Username
+		dd= stingray.username
+		dt Id
+		dd= stingray.id
+		if stingray.environment
+			dt Environment
+			dd
+				a(href='/environment/#{stingray.environment.id}')= stingray.environment.name

@@ -15,7 +15,8 @@
     "environment",
     "platform",
     "tier",
-    "machine"
+    "machine",
+    "stingray"
   ],
   "routes": {
     "dashboard": {
@@ -41,6 +42,10 @@
     "machine": {
       "mount": "/machine",
       "controllers": [ "inventory/machine", "inventory/machine_actions" ]
+    },
+    "stingray": {
+      "mount": "/stingray",
+      "controllers": [ "inventory/stingray" ]
     }
   },
   "tasks": [

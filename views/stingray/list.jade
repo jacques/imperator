@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	h1 Stingrays
+
+	if stingrays
+		dl
+			each stingray in stingrays
+				dt= stingray.name
+				dd
+					a(href='/stingray/#{stingray.id}')= stingray.id
+			else
+				dt There are currently no stingrays
+		.btn-group
+			a.btn.btn-default(href='/stingray/new?environment=#{req.param("environment")}') create new

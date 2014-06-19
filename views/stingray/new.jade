@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+	h1 Create stingray
+
+	form(action='/stingray', method='POST')
+		input(type='hidden', name='environment', value='#{req.param("environment")}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='')
+			dt URL
+			dd
+				input(type='text', name='url', value='')
+			dt Username
+			dd
+				input(type='text', name='username', value='')
+			dt Password
+			dd
+				input(type='text', name='password', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')
