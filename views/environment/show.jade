@@ -28,3 +28,15 @@ block content
 			strong There are no available platforms
 	p
 		a.btn.btn-default(href='/platform/new?environment=#{environment.id}') Add
+
+	h3 Stingrays
+	if stingrays.length
+		dl
+			each stingray in stingrays
+				dd
+					a(href='/stingray/#{stingray.id}')= stingray.name
+	else
+		p
+			strong There are no available stingrays
+	p
+		a.btn.btn-default(href='/stingray/new?environment=#{environment.id}') Add

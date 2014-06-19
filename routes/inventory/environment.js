@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 module.exports = function (router) {
   var Environment = mongoose.models.Environment;
   var Platform = mongoose.models.Platform;
+  var Stingray = mongoose.models.Stingray;
 
   router.get('/', function (req, res) {
     Promise.props({
@@ -23,7 +24,8 @@ module.exports = function (router) {
   router.get('/:environment_id', function (req, res) {
     Promise.props({
       environment: Environment.findOne({ _id: req.param('environment_id') }).exec(),
-      platforms: Platform.find({ environment: req.param('environment_id') }).exec()
+      platforms: Platform.find({ environment: req.param('environment_id') }).exec(),
+      stingrays: Stingray.find({ environment: req.param('environment_id') }).exec()
     }).then(function (models) {
       res.render('environment/show', models);
     });
