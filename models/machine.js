@@ -145,8 +145,8 @@ function machineModel () {
         machine.tags = {};
       }
 
-      if (!machine.tags['imperator_tier']) {
-        machine.tags['imperator_tier'] = machine.tier.id;
+      if (!machine.tags.imperator_tier) {
+        machine.tags.imperator_tier = machine.tier.id;
       }
 
       var opts = {
