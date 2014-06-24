@@ -30,10 +30,7 @@ module.exports = function updateEnvironments () {
       _lock = true;
 
       Promise.props({
-        environments: Environment.find().exec(),
-        platforms: Platform.find().exec(),
-        tiers: Tier.find().exec(),
-        machines: Machine.find().exec()
+        environments: Environment.find().exec()
       }).then(function (models) {
         async.each(models.environments, function iterEnvironment(environment, done) {
           debug('updating %s', environment.name);
