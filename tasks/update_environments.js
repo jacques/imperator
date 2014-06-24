@@ -81,7 +81,23 @@ module.exports = function updateEnvironments () {
                     m.primary_ip = item.primaryIp;
                   }
 
-                  m.save(item_done);
+                  // register in tier if we got a specific tag
+                  if (item.tags.imperator_tier) {
+                    Tier.findOne({ _id: item.tags.imperator_tier }).exec()
+                    .then(function (tier) {
+                      if (tier) {
+                        m.tier = tier.id;
+                      }
+
+                      m.save(item_done);
+                    })
+                    .catch(function () {
+                      // save as it is if fetching tier is not successful
+                      m.save(item_done);
+                    });
+                  } else {
+                    m.save(item_done);
+                  }
                 });
             }, function (err) {
               done(err);
