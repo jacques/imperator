@@ -73,6 +73,17 @@ module.exports = function updateEnvironments () {
                     m.last_seen = Date.now();
                   }
 
+                  // rebuild networks -> ip mapping
+                  m.ips = {};
+                  item.networks.forEach(function (network, index) {
+                    m.ips[network] = item.ips[index];
+                  });
+
+                  // reset primary_ip if we got one from the API
+                  if (item.primaryIp) {
+                    m.primary_ip = item.primaryIp;
+                  }
+
                   m.save(item_done);
                 });
             }, function (err) {

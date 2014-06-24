@@ -51,6 +51,8 @@ function machineModel () {
     created: { type: Date, index: true },
     updated: { type: Date, index: true },
     tags: {},
+    ips: {},
+    primary_ip: { type: String },
 
     // internal fields
     environment: { type: String, ref: 'Environment', index: true },
