@@ -1,0 +1,21 @@
+extends ../../layout
+
+block append breadcrumbs
+	ol.breadcrumb
+		li.active= personas.name
+
+block content
+	//- .btn-group.pull-right
+	//- 	a.btn.btn-danger.btn-sm(href='/cf/personas/#{personas.id}', data-confirm='Delete personas?', data-method='DELETE') Delete
+
+	h1 Personas
+
+	dl
+		dt Name
+		dd= personas.name
+		dt Id
+		dd= personas.id
+		if personas.classes
+			dt Classes
+			each name in personas.classes
+				dd= name

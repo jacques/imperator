@@ -1,0 +1,15 @@
+extends ../../layout
+
+block content
+	h1 Personas
+
+	if personas
+		dl
+			each persona in personas
+				dt= persona.name
+				dd
+					a(href='/cf/personas/#{persona.id}')= persona.id
+			else
+				dt There are currently no cfEngine personas
+		.btn-group
+			a.btn.btn-default(href='/cf/personas/new') create new

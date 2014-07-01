@@ -16,7 +16,8 @@
     "platform",
     "tier",
     "machine",
-    "stingray"
+    "stingray",
+    "cf/personas"
   ],
   "routes": {
     "dashboard": {
@@ -46,6 +47,10 @@
     "stingray": {
       "mount": "/stingray",
       "controllers": [ "inventory/stingray" ]
+    },
+    "cf_personas": {
+      "mount": "/cf/personas",
+      "controllers": [ "cf/personas" ]
     }
   },
   "tasks": [
