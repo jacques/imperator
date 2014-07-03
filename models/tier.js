@@ -12,7 +12,8 @@ function tierModel () {
     system_name: { type: String },
     base_image: { type: String },
     base_package: { type: String },
-    home_network: { type: String }
+    home_network: { type: String },
+    networks: [{ type: String }]
   }, { _id: false, versionKey: false });
 
   tierSchema.plugin(mongoose_uuid.plugin, 'Tier');

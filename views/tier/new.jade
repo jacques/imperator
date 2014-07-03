@@ -22,12 +22,27 @@ block content
 					option(valaue='') Select base package
 					each package in packages
 						option(value='#{package.id}') #{package.name}
-			dt Home Network
+			dt Networks
 			dd
-				select(name='home_network')
-					option(valaue='') Select home network
-					each network in networks
-						option(value='#{network.id}') #{network.name}
+				table.table
+					thead
+						tr
+							th(width=20)
+							th(width=20) Home
+							th(colspan=2) Name
+					tbody
+						each network in networks
+							tr
+								td
+									input(type='checkbox', name='networks[]', value='#{network.id}')
+								td
+									input(type='radio', name='home_network', value='#{network.id}')
+								td(width=10)
+									if network.public
+										span.label.label-success public
+									else
+										span.label.label-warning private
+								td= network.name
 
 		.btn-group
 			input.btn.btn-default(type='submit', value='Save')

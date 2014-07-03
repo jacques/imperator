@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 
@@ -44,13 +45,25 @@ module.exports = function (router) {
   });
 
   router.post('/', function (req, res) {
+    var networks = req.param('networks');
+    var home_network = req.param('home_network');
+
+    if (!networks || networks.length === 0) {
+      networks = [home_network];
+    }
+
+    if (!_.contains(networks, home_network)) {
+      networks.push(home_network);
+    }
+
     var tier = new Tier({
       environment: req.param('environment'),
       platform: req.param('platform'),
       name: req.param('name'),
       base_image: req.param('base_image'),
       base_package: req.param('base_package'),
-      home_network: req.param('home_network')
+      home_network: home_network,
+      networks: networks
     });
 
     tier.save(function (err) {
