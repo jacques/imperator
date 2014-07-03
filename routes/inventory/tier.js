@@ -8,6 +8,7 @@ module.exports = function (router) {
   var Environment = mongoose.models.Environment;
   var Tier = mongoose.models.Tier;
   var Machine = mongoose.models.Machine;
+  var Network = mongoose.models.Network;
 
   router.get('/', function (req, res) {
     Promise.props({
@@ -20,12 +21,12 @@ module.exports = function (router) {
   router.get('/new', function (req, res) {
     Promise.props({
       environment: Environment.findOne({ _id: req.param('environment') }).exec(),
+      networks: Network.find({ environment: req.param('environment') }).exec(),
     }).then(function (models) {
       var cloud = models.environment.getCompute();
 
       models.images = Promise.promisify(cloud.listImages, cloud)();
       models.packages = Promise.promisify(cloud.listPackages, cloud)();
-      models.networks = Promise.promisify(cloud.listNetworks, cloud)();
 
       Promise.props(models).then(function (models) {
         res.render('tier/new', models);
