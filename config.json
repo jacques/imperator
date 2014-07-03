@@ -17,6 +17,7 @@
     "tier",
     "machine",
     "stingray",
+    "network",
     "cf/personas"
   ],
   "routes": {
@@ -48,6 +49,10 @@
       "mount": "/stingray",
       "controllers": [ "inventory/stingray" ]
     },
+    "network": {
+      "mount": "/network",
+      "controllers": [ "inventory/network" ]
+    },
     "cf_personas": {
       "mount": "/cf/personas",
       "controllers": [ "cf/personas" ]
@@ -57,6 +62,11 @@
     {
       "name": "update_environments",
       "interval": 600,
+      "enabled": true
+    },
+    {
+      "name": "update_networks",
+      "interval": 14400,
       "enabled": true
     }
   ]

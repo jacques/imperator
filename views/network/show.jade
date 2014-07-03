@@ -1,0 +1,29 @@
+extends ../layout
+
+block append breadcrumbs
+	ol.breadcrumb
+		li
+			a(href='/environment/#{network.environment.id}')= network.environment.name
+		li.active= network.name
+
+block content
+	.btn-group.pull-right
+		a.btn.btn-info.btn-sm(href='/network/#{network.id}/edit') Edit
+
+	h1 Network
+
+	dl
+		dt Name
+		dd= network.name
+		dt Subnet
+		dd= network.subnet
+		dt Broadcast
+		dd= network.broadcast
+		dt Start-Ip
+		dd= network.start_ip
+		dt End-Ip
+		dd= network.end_ip
+		if network.environment
+			dt Environment
+			dd
+				a(href='/environment/#{network.environment.id}')= network.environment.name

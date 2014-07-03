@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+	h1 Create network
+
+	form(action='/network/#{network.id}', method='POST')
+		input(type='hidden', name='environment', value='#{req.param("environment")}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{network.name}')
+			dt Subnet
+			dd
+				input(type='text', name='subnet', value='#{network.subnet}')
+			dt Broadcast
+			dd
+				input(type='text', name='broadcast', value='#{network.broadcast}')
+			dt Start-Ip
+			dd
+				input(type='text', name='start_ip', value='#{network.start_ip}')
+			dt End-Ip
+			dd
+				input(type='text', name='end_ip', value='#{network.end_ip}')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

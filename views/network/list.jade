@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+	h1 Networks
+
+	if networks
+		dl
+			each network in networks
+				dt
+					| #{network.name} 
+					if network.public
+						span.label.label-success public
+					else
+						span.label.label-warning private
+				dd
+					a(href='/network/#{network.id}')= network.id
+			else
+				dt There are currently no networks
+		.btn-group
+			a.btn.btn-default(href='/network/new?environment=#{req.param("environment")}') create new
