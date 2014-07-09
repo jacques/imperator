@@ -1,0 +1,19 @@
+extends ../../layout
+
+block content
+	h1 Edit cfEngine personas
+
+	form(action='/cf/personas/#{personas.id}', method='POST')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{personas.name}')
+			dt#classes Classes
+			each name in personas.classes
+				dd
+					input(type='text', name='classes[]', value='#{name}')
+			dd
+				input(type='text', name='classes[]', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

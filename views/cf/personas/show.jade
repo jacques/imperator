@@ -5,8 +5,9 @@ block append breadcrumbs
 		li.active= personas.name
 
 block content
-	//- .btn-group.pull-right
-	//- 	a.btn.btn-danger.btn-sm(href='/cf/personas/#{personas.id}', data-confirm='Delete personas?', data-method='DELETE') Delete
+	.btn-group.pull-right
+		//- 	a.btn.btn-danger.btn-sm(href='/cf/personas/#{personas.id}', data-confirm='Delete personas?', data-method='DELETE') Delete
+		a.btn.btn-info.btn-sm(href='/cf/personas/#{personas.id}/edit') Edit
 
 	h1 Personas
 
