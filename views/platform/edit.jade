@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h1 Edit platform
+
+	form(action='/platform/#{platform.id}', method='POST')
+		input(type='hidden', name='environment', value='#{platform.environment}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{platform.name}')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

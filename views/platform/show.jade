@@ -10,6 +10,8 @@ block content
 	if tiers.length === 0
 		.btn-group.pull-right
 			a.btn.btn-danger.btn-sm(href='/platform/#{platform.id}', data-confirm='Delete platform?', data-method='DELETE') Delete
+	.btn-group.pull-right
+		a.btn.btn-info.btn-sm(href='/platform/#{platform.id}/edit') Edit
 
 	h1 Platform
 
