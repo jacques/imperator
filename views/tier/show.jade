@@ -12,6 +12,8 @@ block content
 	if machines.length === 0
 		.btn-group.pull-right
 			a.btn.btn-danger.btn-sm(href='/tier/#{tier.id}', data-confirm='Delete tier?', data-method='DELETE') Delete
+	.btn-group.pull-right
+		a.btn.btn-info.btn-sm(href='/tier/#{tier.id}/edit') Edit
 
 	h1 Tier
 

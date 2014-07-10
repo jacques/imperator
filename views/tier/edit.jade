@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+	h1 Create tier
+
+	form(action='/tier/#{tier.id}', method='POST')
+		input(type='hidden', name='environment', value='#{tier.environment.id}')
+		input(type='hidden', name='platform', value='#{tier.platform.id}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{tier.name}')
+			dt Base Image
+			dd
+				select(name='base_image')
+					option(valaue='') Select base image
+					each image in images
+						option(value='#{image.id}', selected=tier.base_image==image.id) #{image.name} - #{image.version}
+			dt Base Package
+			dd
+				select(name='base_package')
+					option(valaue='') Select base package
+					each package in packages
+						option(value='#{package.id}', selected=tier.base_package==package.id) #{package.name}
+			dt Networks
+			dd
+				table.table
+					thead
+						tr
+							th(width=20)
+							th(width=20) Home
+							th(colspan=2) Name
+					tbody
+						each network in networks
+							tr
+								td
+									input(type='checkbox', name='networks[]', value='#{network.id}', checked=tier.networks.indexOf(network.id)!=-1)
+								td
+									input(type='radio', name='home_network', value='#{network.id}', checked=network.id==tier.home_network)
+								td(width=10)
+									if network.public
+										span.label.label-success public
+									else
+										span.label.label-warning private
+								td= network.name
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')
