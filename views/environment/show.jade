@@ -8,6 +8,8 @@ block content
 	if platforms.length === 0
 		.btn-group.pull-right
 			a.btn.btn-danger.btn-sm(href='/environment/#{environment.id}', data-confirm='Delete environment?', data-method='DELETE') Delete
+	.btn-group.pull-right
+		a.btn.btn-info.btn-sm(href='/environment/#{environment.id}/edit') Edit
 
 	h1 Environment
 

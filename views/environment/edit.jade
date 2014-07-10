@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+	h1 Edit environment
+
+	form(action='/environment/#{environment.id}', method='POST')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{environment.name}')
+			dt Cloud Options
+			dl
+				dt URL
+				dd
+					input(type='text', name='pkgcloud_options[url]', value='#{environment.pkgcloud_options.url}')
+				dt Account
+				dd
+					input(type='text', name='pkgcloud_options[account]', value='#{environment.pkgcloud_options.account}')
+				dt Key-Id
+				dd
+					input(type='text', name='pkgcloud_options[keyId]', value='#{environment.pkgcloud_options.keyId}')
+				dt Key (optional)
+				dd
+					input(type='text', name='pkgcloud_options[key]', value='#{environment.pkgcloud_options.key}')
+				dt Cache timeout (seconds)
+				dd
+					input(type='text', name='pkgcloud_options[cacheExpiry]', value='#{environment.pkgcloud_options.cacheExpiry}')
+
+			.btn-group
+				input.btn.btn-default(type='submit', value='Save')

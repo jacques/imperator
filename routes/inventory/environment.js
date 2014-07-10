@@ -31,6 +31,16 @@ module.exports = function (router) {
     });
   });
 
+  router.get('/:environment_id/edit', function (req, res) {
+    Promise.props({
+      environment: Environment.findOne({ _id: req.param('environment_id') }).exec(),
+      platforms: Platform.find({ environment: req.param('environment_id') }).exec(),
+      stingrays: Stingray.find({ environment: req.param('environment_id') }).exec()
+    }).then(function (models) {
+      res.render('environment/edit', models);
+    });
+  });
+
   router.post('/', function (req, res) {
     var environment = new Environment({
       name: req.param('name'),
@@ -51,6 +61,25 @@ module.exports = function (router) {
       req.flash('success', 'Environment "%s" has been created', environment.name);
 
       res.redirect('/environment/' + environment.id);
+    });
+  });
+
+  router.post('/:environment_id', function (req, res) {
+    Promise.props({
+      environment: Environment.findOne({ _id: req.param('environment_id') }).exec()
+    }).then(function (models) {
+      models.environment.name = req.param('name');
+      models.environment.pkgcloud_options = req.param('pkgcloud_options');
+
+      models.environment.save(function (err) {
+        if (err) {
+          req.flash('error', 'Environment "%s" could not be saved', models.environment.name);
+        } else {
+          req.flash('success', 'Environment "%s" has been saved', models.environment.name);
+        }
+
+        res.redirect('/environment/' + models.environment.id);
+      });
     });
   });
 
