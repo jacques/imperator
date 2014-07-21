@@ -4,10 +4,14 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var uuid = require('uuid');
 
+var container = require('../../lib/container');
+
 
 module.exports = function (router) {
   var Tier = mongoose.models.Tier;
   var Machine = mongoose.models.Machine;
+
+  var app = container.get('app');
 
   router.get('/', function (req, res) {
     Promise.props({
@@ -45,6 +49,8 @@ module.exports = function (router) {
 
     machine.create()
       .then(function (machine) {
+        app.emit('imperator:machine:created', machine);
+
         req.flash('success', 'Machine "%s" has been created', machine.name);
 
         res.redirect('/machine/' + machine.id);
@@ -64,6 +70,8 @@ module.exports = function (router) {
     }).then(function (models) {
       if (models.machine.state === 'destroyed') {
         models.machine.remove(function (err) {
+          app.emit('imperator:machine:deleted', models.machine);
+
           req.flash('success', 'Machine "%s" has been removed from database', models.machine.name);
 
           res.redirect('/tier/' + models.machine.tier);
@@ -71,6 +79,8 @@ module.exports = function (router) {
       } else {
         models.machine.delete()
           .then(function (machine) {
+            app.emit('imperator:machine:deleted', models.machine);
+
             req.flash('success', 'Machine "%s" has been deleted', models.machine.name);
 
             res.redirect('/machine/' + machine.id);
