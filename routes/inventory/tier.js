@@ -40,7 +40,6 @@ module.exports = function (router) {
       tier: Tier.findOne({ _id: req.param('tier_id') }).populate('environment platform').exec(),
       machines: Machine.find({ tier: req.param('tier_id') }).exec()
     }).then(function (models) {
-      console.dir(models);
       res.render('tier/show', models);
     });
   });
