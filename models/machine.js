@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mongoose_uuid = require('mongoose-uuid');
@@ -108,9 +109,13 @@ function machineModel () {
     return deferred.promise;
   };
 
-  machineSchema.methods.waitForState = function (state) {
+  machineSchema.methods.waitForState = function (states) {
     var machine = this;
     var deferred = Promise.pending();
+
+    if (_.isString(states)) {
+      states = [states];
+    }
 
     this.populate('environment tier', function (err, machine) {
       var cloud = machine.environment.getCompute();
@@ -119,7 +124,7 @@ function machineModel () {
         cloud.getMachine(machine.machine_uuid, function (err, obj) {
           if (err) {
             deferred.reject(err);
-          } else if (obj.state === state) {
+          } else if (_.contains(states, obj.state)) {
             clearInterval(_wait);
 
             machine.state = obj.state;
