@@ -21,7 +21,7 @@ block content
 					input(type='text', name='pkgcloud_options[keyId]', value='#{environment.pkgcloud_options.keyId}')
 				dt Key (optional)
 				dd
-					input(type='text', name='pkgcloud_options[key]', value='#{environment.pkgcloud_options.key}')
+					textarea(name='pkgcloud_options[key]', cols=80, rows=6)= environment.pkgcloud_options.key
 				dt Cache timeout (seconds)
 				dd
 					input(type='text', name='pkgcloud_options[cacheExpiry]', value='#{environment.pkgcloud_options.cacheExpiry}')
