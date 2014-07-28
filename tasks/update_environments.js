@@ -56,48 +56,17 @@ module.exports = function updateEnvironments () {
                       updated: item.updated,
                       state: item.state || 'unknown'
                     });
-                  } else {
-                    debug('updating machine %s for %s', m.id, item.id);
-
-                    if (item.state) {
-                      m.state = item.state;
-                    }
-                    if (item.tags) {
-                      m.tags = item.tags;
-                    }
-                    m.created = item.created;
-                    m.updated = item.updated;
-                    m.last_seen = Date.now();
                   }
 
-                  // rebuild networks -> ip mapping
-                  m.ips = {};
-                  item.networks.forEach(function (network, index) {
-                    m.ips[network] = item.ips[index];
-                  });
+                  debug('updating machine %s for %s', m.id, item.id);
 
-                  // reset primary_ip if we got one from the API
-                  if (item.primaryIp) {
-                    m.primary_ip = item.primaryIp;
-                  }
-
-                  // register in tier if we got a specific tag
-                  if (item.tags.imperator_tier) {
-                    Tier.findOne({ _id: item.tags.imperator_tier }).exec()
-                    .then(function (tier) {
-                      if (tier) {
-                        m.tier = tier.id;
-                      }
-
-                      m.save(item_done);
+                  m.updateFromEnvironment()
+                    .then(function (machine) {
+                      item_done(null, machine);
                     })
-                    .catch(function () {
-                      // save as it is if fetching tier is not successful
-                      m.save(item_done);
+                    .error(function (err) {
+                      item_done(err, machine);
                     });
-                  } else {
-                    m.save(item_done);
-                  }
                 });
             }, function (err) {
               done(err);

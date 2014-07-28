@@ -8,6 +8,8 @@ var uuid = require('uuid');
 
 
 function machineModel () {
+  var Tier = mongoose.models.Tier;
+
   var machineEventSchema = mongoose.Schema({
     _id: {
       type: String,
@@ -82,6 +84,71 @@ function machineModel () {
 
     next();
   });
+
+  machineSchema.methods.updateFromEnvironment = function () {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    this.populate('environment', function (err, machine) {
+      var cloud = machine.environment.getCompute();
+
+      cloud.getMachine(machine.machine_uuid, function (err, obj) {
+        function _done(err, machine) {
+          if (err) {
+            deferred.reject(err);
+          } else {
+            deferred.resolve(machine);
+          }
+        }
+
+        if (err) {
+          deferred.reject(err);
+        } else {
+          if (obj.state) {
+            machine.state = obj.state;
+          }
+
+          if (obj.tags) {
+            machine.tags = obj.tags;
+          }
+
+          machine.created = obj.created;
+          machine.updated = obj.updated;
+          machine.last_seen = Date.now();
+
+          // rebuild networks -> ip mapping
+          machine.ips = {};
+          obj.networks.forEach(function (network, index) {
+            machine.ips[network] = obj.ips[index];
+          });
+
+          // reset primary_ip if we got one from the API
+          if (obj.primaryIp) {
+            machine.primary_ip = obj.primaryIp;
+          }
+
+          // register in tier if we got a specific tag
+          if (obj.tags.imperator_tier) {
+            Tier.findOne({ _id: obj.tags.imperator_tier }).exec()
+            .then(function (tier) {
+              if (tier) {
+                machine.tier = tier.id;
+              }
+
+              machine.save(_done);
+            }, function () {
+              // save as it is if fetching tier is not successful
+              machine.save(_done);
+            });
+          } else {
+            machine.save(_done);
+          }
+        }
+      });
+    });
+
+    return deferred.promise;
+  };
 
   machineSchema.methods.addEvent = function (type, message, meta) {
     var machine = this;
