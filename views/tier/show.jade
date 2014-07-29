@@ -30,6 +30,10 @@ block content
 			dt Environment
 			dd
 				a(href='/environment/#{tier.environment.id}')= tier.environment.name
+		if tier.cfpersonas
+			dt cfEngine Personas
+			dd
+				a(href='/cf/personas/#{tier.cfpersonas.id}')= tier.cfpersonas.name
 
 	h3 Machines
 	if machines.length

@@ -43,6 +43,12 @@ block content
 									else
 										span.label.label-warning private
 								td= network.name
+			dt cfEngine Personas
+			dd
+				select(name='cfpersonas')
+					option(valaue='') Select cfEngine Personas
+					each item in cfpersonas
+						option(value='#{item.id}') #{item.name}
 
 		.btn-group
 			input.btn.btn-default(type='submit', value='Save')

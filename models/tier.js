@@ -8,6 +8,7 @@ function tierModel () {
   var tierSchema = mongoose.Schema({
     environment: { type: String, ref: 'Environment', index: true },
     platform: { type: String, ref: 'Platform', index: true },
+    cfpersonas: { type: String, ref: 'CfPersonas', index: true },
     name: { type: String },
     system_name: { type: String },
     base_image: { type: String },

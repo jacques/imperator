@@ -10,6 +10,7 @@ module.exports = function (router) {
   var Tier = mongoose.models.Tier;
   var Machine = mongoose.models.Machine;
   var Network = mongoose.models.Network;
+  var CfPersonas = mongoose.models.CfPersonas;
 
   router.get('/', function (req, res) {
     Promise.props({
@@ -22,6 +23,7 @@ module.exports = function (router) {
   router.get('/new', function (req, res) {
     Promise.props({
       environment: Environment.findOne({ _id: req.param('environment') }).exec(),
+      cfpersonas: CfPersonas.find().exec(),
       networks: Network.find({ environment: req.param('environment') }).exec()
     }).then(function (models) {
       var cloud = models.environment.getCompute();
@@ -37,7 +39,7 @@ module.exports = function (router) {
 
   router.get('/:tier_id', function (req, res) {
     Promise.props({
-      tier: Tier.findOne({ _id: req.param('tier_id') }).populate('environment platform').exec(),
+      tier: Tier.findOne({ _id: req.param('tier_id') }).populate('environment platform cfpersonas').exec(),
       machines: Machine.find({ tier: req.param('tier_id') }).exec()
     }).then(function (models) {
       res.render('tier/show', models);
@@ -53,6 +55,7 @@ module.exports = function (router) {
       models.images = Promise.promisify(cloud.listImages, cloud)();
       models.packages = Promise.promisify(cloud.listPackages, cloud)();
       models.networks = Network.find({ environment: models.tier.environment.id }).exec();
+      models.cfpersonas = CfPersonas.find().exec()
 
       Promise.props(models).then(function (models) {
         res.render('tier/edit', models);
@@ -75,6 +78,7 @@ module.exports = function (router) {
     var tier = new Tier({
       environment: req.param('environment'),
       platform: req.param('platform'),
+      cfpersonas: req.param('cfpersonas'),
       name: req.param('name'),
       base_image: req.param('base_image'),
       base_package: req.param('base_package'),
@@ -116,6 +120,7 @@ module.exports = function (router) {
 
       models.tier.environment = req.param('environment');
       models.tier.platform = req.param('platform');
+      models.tier.cfpersonas = req.param('cfpersonas');
       models.tier.name = req.param('name');
       models.tier.base_image = req.param('base_image');
       models.tier.base_package = req.param('base_package');
