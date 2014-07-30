@@ -15,6 +15,7 @@ function networkModel () {
     environment: { type: String, ref: 'Environment', index: true },
     name: { type: String },
     system_name: { type: String },
+    order: { type: Number, default: 0, index: true },
     public: { type: Boolean },
     subnet: { type: String },
     broadcast: { type: String },

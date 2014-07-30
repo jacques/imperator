@@ -9,7 +9,7 @@ module.exports = function (router) {
 
   router.get('/', function (req, res) {
     Promise.props({
-      networks: Network.find().sort({ name: 1 }).exec()
+      networks: Network.find().sort({ order: 1, name: 1 }).exec()
     }).then(function (models) {
       res.render('network/list', models);
     });
@@ -36,6 +36,7 @@ module.exports = function (router) {
       network: Network.findOne({ _id: req.param('network_id') }).populate('environment').exec()
     }).then(function (models) {
       models.network.name = req.param('name');
+      models.network.order = req.param('order');
       models.network.subnet = req.param('subnet');
       models.network.broadcast = req.param('broadcast');
       models.network.start_ip = req.param('start_ip');
