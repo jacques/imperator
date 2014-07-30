@@ -46,7 +46,9 @@ function machineModel () {
         'unknown',
         'provisioning',
         'running',
+        'stopping',
         'stopped',
+        'failed',
         'destroyed'
       ],
       default: 'unknown'
@@ -176,6 +178,49 @@ function machineModel () {
     return deferred.promise;
   };
 
+  machineSchema.methods.getCfPersonas = function () {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    machine.populate('tier', function (err, machine) {
+      if (err) {
+        deferred.reject(err);
+        return;
+      }
+
+      machine.tier.populate('cfpersonas', function (err, tier) {
+        if (err) {
+          deferred.reject(err);
+          return;
+        }
+
+        deferred.resolve(tier.cfpersonas.classes);
+      });
+    });
+
+    return deferred.promise;
+  };
+
+  machineSchema.methods.getHomeIp = function () {
+    var machine = this;
+    var deferred = Promise.pending();
+
+    machine.populate('tier', function (err, machine) {
+      if (err) {
+        deferred.reject(err);
+        return;
+      }
+
+      if (machine.tier.home_network && machine.ips[machine.tier.home_network]) {
+        deferred.resolve(machine.ips[machine.tier.home_network]);
+      } else {
+        deferred.resolve(machine.primary_ip);
+      }
+    });
+
+    return deferred.promise;
+  };
+
   machineSchema.methods.waitForState = function (states) {
     var machine = this;
     var deferred = Promise.pending();
@@ -226,7 +271,8 @@ function machineModel () {
       var opts = {
         name: machine.name,
         image: machine.tier.base_image,
-        package: machine.tier.base_package
+        package: machine.tier.base_package,
+        networks: machine.tier.networks
       };
 
       var k;

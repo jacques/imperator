@@ -10,6 +10,9 @@
       "db": "imperator"
     }
   },
+  "cfengine": {
+    "masterfiles_path": "/var/cfengine/masterfiles"
+  },
   "models": [
     "user",
     "environment",
@@ -67,6 +70,11 @@
     {
       "name": "update_networks",
       "interval": 14400,
+      "enabled": true
+    },
+    {
+      "name": "handle_cfengine_personas",
+      "interval": 0,
       "enabled": true
     }
   ]
