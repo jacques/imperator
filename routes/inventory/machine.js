@@ -2,7 +2,6 @@
 
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
-var uuid = require('uuid');
 
 var container = require('../../lib/container');
 
@@ -44,7 +43,7 @@ module.exports = function (router) {
       environment: req.param('environment'),
       platform: req.param('platform'),
       tier: req.param('tier'),
-      name: req.param('name') || uuid.v4()
+      name: req.param('name') || ''
     });
 
     machine.create()

@@ -4,7 +4,6 @@ var _ = require('underscore');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mongoose_uuid = require('mongoose-uuid');
-var uuid = require('uuid');
 
 
 function machineModel () {
@@ -38,7 +37,7 @@ function machineModel () {
   var MachineEvent = mongoose.model('MachineEvent', machineEventSchema);
 
   var machineSchema = mongoose.Schema({
-    name: { type: String, default: uuid.v4 },
+    name: { type: String, default: '' },
     machine_uuid: { type: String },
     state: {
       type: String,
@@ -82,7 +81,9 @@ function machineModel () {
       return;
     }
 
-    machine.system_name = machine.name.toLowerCase().replace(/\s+/g, '_');
+    if (machine.name && machine.name.length > 0) {
+      machine.system_name = machine.name.toLowerCase().replace(/\s+/g, '_');
+    }
 
     next();
   });
@@ -269,11 +270,14 @@ function machineModel () {
       }
 
       var opts = {
-        name: machine.name,
         image: machine.tier.base_image,
         package: machine.tier.base_package,
         networks: machine.tier.networks
       };
+
+      if (machine.name && machine.name.length > 0) {
+        opts.name = machine.name;
+      }
 
       var k;
       for (k in machine.tags) {
@@ -296,6 +300,10 @@ function machineModel () {
           machine.created = obj.created;
           machine.updated = obj.updated;
           machine.last_seen = Date.now();
+
+          if (!machine.name || machine.name.length == 0) {
+            machine.name = obj.id;
+          }
 
           machine.save(function (err, machine) {
             if (err) {
