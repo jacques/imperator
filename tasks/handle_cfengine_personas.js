@@ -35,6 +35,10 @@ module.exports = function handleCfenginePersonas () {
                 cfengine.createPersonas(models.home_ip, models.personas)
               ]).then(function () {
                 debug('cfengine files were created successfully');
+
+                machine.addEvent(
+                  'info',
+                  'cfEngine personas created');
               });
             });
           });
@@ -49,6 +53,10 @@ module.exports = function handleCfenginePersonas () {
         cfengine.removeAll(home_ip)
       ]).then(function () {
         debug('cfengine files were removed');
+
+        data.addEvent(
+          'info',
+          'cfEngine personas removed');
       });
     });
   }
