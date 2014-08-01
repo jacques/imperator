@@ -80,6 +80,7 @@ module.exports = function (router) {
       platform: req.param('platform'),
       cfpersonas: req.param('cfpersonas'),
       name: req.param('name'),
+      user_script: req.param('user_script'),
       base_image: req.param('base_image'),
       base_package: req.param('base_package'),
       home_network: home_network,
@@ -122,6 +123,7 @@ module.exports = function (router) {
       models.tier.platform = req.param('platform');
       models.tier.cfpersonas = req.param('cfpersonas');
       models.tier.name = req.param('name');
+      models.tier.user_script = req.param('user_script');
       models.tier.base_image = req.param('base_image');
       models.tier.base_package = req.param('base_package');
       models.tier.home_network = home_network;

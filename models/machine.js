@@ -284,6 +284,10 @@ function machineModel () {
         opts['tag.' + k] = machine.tags[k];
       }
 
+      if (machine.tier.user_script && machine.tier.user_script.length > 0) {
+        opts['metadata.user-script'] = machine.tier.user_script.replace(/\r?\n/g, '\n');
+      }
+
       deferred.promise.then(function (machine) {
         machine.addEvent(
           'start',

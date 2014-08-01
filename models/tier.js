@@ -11,6 +11,7 @@ function tierModel () {
     cfpersonas: { type: String, ref: 'CfPersonas', index: true },
     name: { type: String },
     system_name: { type: String },
+    user_script: { type: String },
     base_image: { type: String },
     base_package: { type: String },
     home_network: { type: String },
