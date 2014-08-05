@@ -65,11 +65,16 @@
     {
       "name": "fetch_environments",
       "interval": 14400,
-      "enabled": true
+      "enabled": false
     },
     {
       "name": "fetch_networks",
       "interval": 14400,
+      "enabled": true
+    },
+    {
+      "name": "update_machines",
+      "interval": 1800,
       "enabled": true
     },
     {
