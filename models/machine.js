@@ -34,8 +34,6 @@ function machineModel () {
 
   machineEventSchema.plugin(mongoose_uuid.plugin, 'MachineEvent');
 
-  var MachineEvent = mongoose.model('MachineEvent', machineEventSchema);
-
   var machineSchema = mongoose.Schema({
     name: { type: String, default: '' },
     machine_uuid: { type: String },
@@ -161,12 +159,12 @@ function machineModel () {
       meta = {};
     }
 
-    machine.events.unshift(new MachineEvent({
+    machine.events.unshift({
       type: type,
       timestamp: new Date(),
       message: message,
       meta: meta
-    }));
+    });
 
     machine.save(function (err, machine) {
       if (err) {
