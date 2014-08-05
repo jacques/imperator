@@ -7,13 +7,13 @@ var mongoose = require('mongoose');
 var debug = require('debuglog')('imperator/tasks');
 
 
-module.exports = function updateNetworks () {
+module.exports = function fetchNetworks () {
   var Environment = mongoose.models.Environment;
   var Network = mongoose.models.Network;
 
   var _lock = false;
 
-  function _updateNetworksTask() {
+  function _fetchNetworksTask() {
     debug('starting update');
 
     if (_lock) {
@@ -78,15 +78,15 @@ module.exports = function updateNetworks () {
 
   return {
     run: function run (interval) {
-      setInterval(_updateNetworksTask, 1000 * (interval || 60));
+      setInterval(_fetchNetworksTask, 1000 * (interval || 1800));
 
       // run async on next tick
-      process.nextTick(_updateNetworksTask);
+      process.nextTick(_fetchNetworksTask);
     },
     update: function update (cb) {
       debug('forcing an update');
 
-      _updateNetworksTask();
+      _fetchNetworksTask();
 
       if (cb) {
         cb(null);

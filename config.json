@@ -63,12 +63,12 @@
   },
   "tasks": [
     {
-      "name": "update_environments",
-      "interval": 600,
+      "name": "fetch_environments",
+      "interval": 14400,
       "enabled": true
     },
     {
-      "name": "update_networks",
+      "name": "fetch_networks",
       "interval": 14400,
       "enabled": true
     },

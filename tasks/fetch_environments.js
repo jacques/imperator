@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var debug = require('debuglog')('imperator/tasks');
 
 
-module.exports = function updateEnvironments () {
+module.exports = function fetchEnvironments () {
   var Environment = mongoose.models.Environment;
   var Platform = mongoose.models.Platform;
   var Tier = mongoose.models.Tier;
@@ -15,7 +15,7 @@ module.exports = function updateEnvironments () {
 
   var _lock = false;
 
-  function _updateEnvironmentsTask() {
+  function _fetchEnvironmentsTask() {
     debug('starting update');
 
     if (_lock) {
@@ -87,15 +87,15 @@ module.exports = function updateEnvironments () {
 
   return {
     run: function run (interval) {
-      setInterval(_updateEnvironmentsTask, 1000 * (interval || 60));
+      setInterval(_fetchEnvironmentsTask, 1000 * (interval || 1800));
 
       // run async on next tick
-      process.nextTick(_updateEnvironmentsTask);
+      process.nextTick(_fetchEnvironmentsTask);
     },
     update: function update (cb) {
       debug('forcing an update');
 
-      _updateEnvironmentsTask();
+      _fetchEnvironmentsTask();
 
       if (cb) {
         cb(null);
