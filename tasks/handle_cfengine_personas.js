@@ -39,6 +39,18 @@ module.exports = function handleCfenginePersonas () {
                 machine.addEvent(
                   'info',
                   'cfEngine personas created');
+
+                setTimeout(function () {
+                  debug('forcing an agent run on the created machine');
+
+                  cfengine.runAgent(models.home_ip)
+                    .catch(function (err) {
+                      debug('error: %s', err);
+                    })
+                    .then(function (data) {
+                      debug('stdout: %s', data);
+                    });
+                  }, 2 * 60 * 1000);
               });
             });
           });
