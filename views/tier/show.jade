@@ -46,3 +46,4 @@ block content
 			strong There are no available machines
 	p
 		a.btn.btn-default(href='/machine/?environment=#{tier.environment.id}&platform=#{tier.platform.id}&tier=#{tier.id}', data-confirm='Create machine?', data-method='POST') create new machine
+		a.btn.btn-default(href='/machine/new?environment=#{tier.environment.id}&platform=#{tier.platform.id}&tier=#{tier.id}') create

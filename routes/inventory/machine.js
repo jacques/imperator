@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
+var uuid = require('uuid');
 
 var container = require('../../lib/container');
 
@@ -39,20 +40,37 @@ module.exports = function (router) {
   });
 
   router.post('/', function (req, res) {
-    var machine = new Machine({
-      environment: req.param('environment'),
-      platform: req.param('platform'),
-      tier: req.param('tier'),
-      name: req.param('name') || ''
-    });
+    var name = req.param('name') || '';
+    var count = req.param('count') || 1;
+    var machines = [];
 
-    machine.create()
-      .then(function (machine) {
-        app.emit('imperator:machine:created', machine);
+    for (var i = 0; i < count; i++) {
+      var machine_name = name;
 
-        req.flash('success', 'Machine "%s" has been created', machine.name);
+      if (count > 0 && name.length > 0) {
+        machine_name += '-' + uuid.v1().split(/-/)[0];
+      }
 
-        res.redirect('/machine/' + machine.id);
+      var machine = new Machine({
+        environment: req.param('environment'),
+        platform: req.param('platform'),
+        tier: req.param('tier'),
+        name: machine_name
+      });
+
+      var promise = machine.create()
+        .then(function (machine) {
+          app.emit('imperator:machine:created', machine);
+
+          req.flash('success', 'Machine "%s" has been created', machine.name);
+        });
+
+      machines.push(promise);
+    }
+
+    Promise.settle(machines)
+      .then(function() {
+        res.redirect('/tier/' + req.param('tier'));
       })
       .catch(function (err) {
         res.render('error', {
