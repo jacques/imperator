@@ -40,7 +40,7 @@ module.exports = function (router) {
   router.get('/:tier_id', function (req, res) {
     Promise.props({
       tier: Tier.findOne({ _id: req.param('tier_id') }).populate('environment platform cfpersonas').exec(),
-      machines: Machine.find({ tier: req.param('tier_id') }).exec()
+      machines: Machine.find({ tier: req.param('tier_id') }).sort({ state: 1, name: 1 }).exec()
     }).then(function (models) {
       res.render('tier/show', models);
     });
