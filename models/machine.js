@@ -46,6 +46,7 @@ function machineModel () {
         'stopping',
         'stopped',
         'failed',
+        'deleted',
         'destroyed'
       ],
       default: 'unknown'
@@ -102,7 +103,7 @@ function machineModel () {
           }
         }
 
-        if (err) {
+        if (err && !obj) {
           deferred.reject(err);
         } else {
           if (obj.state) {

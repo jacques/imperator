@@ -29,9 +29,10 @@ module.exports = function updateMachines () {
           debug('updating machine %s', machine.name);
 
           machine.updateFromEnvironment()
-            .catch(next)
             .then(function () {
               next();
+            }, function (err) {
+              next(err);
             });
         });
       });
