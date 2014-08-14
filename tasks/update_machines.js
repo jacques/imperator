@@ -34,6 +34,10 @@ module.exports = function updateMachines () {
             }, function (err) {
               next(err);
             });
+        }, function callback(err) {
+          debug('releasing lock');
+
+          _lock = false;
         });
       });
     } catch (err) {
