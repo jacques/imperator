@@ -61,6 +61,15 @@ function machineModel () {
     environment: { type: String, ref: 'Environment', index: true },
     platform: { type: String, ref: 'Platform', index: true },
     tier: { type: String, ref: 'Tier', index: true },
+    cfpersonas: { type: String, ref: 'CfPersonas', index: true },
+    cfpersonas_mode: {
+      type: String,
+      enum: [
+        'merge',
+        'override'
+      ],
+      default: 'merge'
+    },
     managed: { type: Boolean, default: false, index: true },
     last_seen: { type: Date, index: true },
     events: [ machineEventSchema ]
@@ -182,7 +191,7 @@ function machineModel () {
     var machine = this;
     var deferred = Promise.pending();
 
-    machine.populate('tier', function (err, machine) {
+    machine.populate('tier cfpersonas', function (err, machine) {
       if (err) {
         deferred.reject(err);
         return;
@@ -194,7 +203,11 @@ function machineModel () {
           return;
         }
 
-        deferred.resolve(tier.cfpersonas.classes);
+        if (machine.cfpersonas_mode === 'override') {
+          deferred.resolve(machine.cfpersonas.classes);
+        } else {
+          deferred.resolve(_.union(tier.cfpersonas.classes, machine.cfpersonas.classes));
+        }
       });
     });
 

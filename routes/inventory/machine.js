@@ -10,6 +10,7 @@ var container = require('../../lib/container');
 module.exports = function (router) {
   var Tier = mongoose.models.Tier;
   var Machine = mongoose.models.Machine;
+  var CfPersonas = mongoose.models.CfPersonas;
 
   var app = container.get('app');
 
@@ -22,8 +23,13 @@ module.exports = function (router) {
   });
 
   router.get('/new', function (req, res) {
-    res.render('machine/new', {
+    Promise.props({
+      cfpersonas: CfPersonas.find().exec(),
       machine: new Machine()
+    }).then(function (models) {
+      Promise.props(models).then(function (models) {
+        res.render('machine/new', models);
+      });
     });
   });
 
@@ -55,6 +61,8 @@ module.exports = function (router) {
         environment: req.param('environment'),
         platform: req.param('platform'),
         tier: req.param('tier'),
+        cfpersonas: req.param('cfpersonas'),
+        cfpersonas_mode: req.param('cfpersonas_mode'),
         name: machine_name
       });
 
