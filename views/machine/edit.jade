@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+	h1 Create machine
+
+	form(action='/machine/#{machine.id}', method='POST')
+		input(type='hidden', name='environment', value='#{machine.environment}')
+		input(type='hidden', name='platform', value='#{machine.platform}')
+		input(type='hidden', name='tier', value='#{machine.tier}')
+		dl
+			dt Name
+			dd
+				input(type='text', name='name', value='#{machine.name}')
+			dt cfEngine Personas
+			dd
+				select(name='cfpersonas')
+					option(valaue='') Select cfEngine Personas
+					each item in cfpersonas
+						option(value='#{item.id}', selected=machine.cfpersonas==item.id) #{item.name}
+			dt cfEngine Personas Mode
+			dd
+				select(name='cfpersonas_mode')
+					option(value='merge', selected=machine.cfpersonas_mode=='merge') merge with parent
+					option(value='override', selected=machine.cfpersonas_mode=='override') ignore parent personas
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

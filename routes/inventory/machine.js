@@ -45,6 +45,15 @@ module.exports = function (router) {
     });
   });
 
+  router.get('/:machine_id/edit', function (req, res) {
+    Promise.props({
+      machine: Machine.findOne({ _id: req.param('machine_id') }).populate('environment platform').exec(),
+      cfpersonas: CfPersonas.find().exec()
+    }).then(function (models) {
+      res.render('machine/edit', models);
+    });
+  });
+
   router.post('/', function (req, res) {
     var name = req.param('name') || '';
     var count = req.param('count') || 1;
@@ -87,6 +96,28 @@ module.exports = function (router) {
           url: req.url
         });
       });
+  });
+
+  router.post('/:machine_id', function (req, res) {
+    Promise.props({
+      machine: Machine.findOne({ _id: req.param('machine_id') }).exec()
+    }).then(function (models) {
+      models.machine.name = req.param('name');
+      models.machine.cfpersonas = req.param('cfpersonas');
+      models.machine.cfpersonas_mode = req.param('cfpersonas_mode');
+
+      models.machine.save(function (err) {
+        if (err) {
+          req.flash('error', 'Machine "%s" could not be saved', models.machine.name);
+        } else {
+          app.emit('imperator:machine:created', models.machine);
+
+          req.flash('success', 'Machine "%s" has been saved', models.machine.name);
+        }
+
+        res.redirect('/machine/' + models.machine.id);
+      });
+    });
   });
 
   router.delete('/:machine_id', function (req, res) {
