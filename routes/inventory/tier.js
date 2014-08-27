@@ -24,7 +24,7 @@ module.exports = function (router) {
     Promise.props({
       environment: Environment.findOne({ _id: req.param('environment') }).exec(),
       cfpersonas: CfPersonas.find().exec(),
-      networks: Network.find({ environment: req.param('environment') }).sort({ order: 1 }).exec()
+      networks: Network.find({ environment: req.param('environment'), hidden: { $ne: true } }).sort({ order: 1 }).exec()
     }).then(function (models) {
       var cloud = models.environment.getCompute();
 
@@ -54,7 +54,7 @@ module.exports = function (router) {
 
       models.images = Promise.promisify(cloud.listImages, cloud)();
       models.packages = Promise.promisify(cloud.listPackages, cloud)();
-      models.networks = Network.find({ environment: models.tier.environment.id }).sort({ order: 1 }).exec();
+      models.networks = Network.find({ environment: models.tier.environment.id, hidden: { $ne: true } }).sort({ order: 1 }).exec();
       models.cfpersonas = CfPersonas.find().exec()
 
       Promise.props(models).then(function (models) {
