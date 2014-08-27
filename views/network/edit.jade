@@ -12,6 +12,10 @@ block content
 			dt Order Index
 			dd
 				input(type='text', name='order', value='#{network.order}')
+			dt
+				input(type='checkbox', name='hidden', value='1', checked=network.hidden)
+				| Hide Network
+				
 			dt Subnet
 			dd
 				input(type='text', name='subnet', value='#{network.subnet}')

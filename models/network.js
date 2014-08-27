@@ -16,6 +16,7 @@ function networkModel () {
     name: { type: String },
     system_name: { type: String },
     order: { type: Number, default: 0, index: true },
+    hidden: { type: Boolean, default: false, index: true },
     public: { type: Boolean },
     subnet: { type: String },
     broadcast: { type: String },
