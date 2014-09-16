@@ -4,6 +4,7 @@ var _ = require('underscore');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var mongoose_uuid = require('mongoose-uuid');
+var mongoose_relationship = require('mongoose-relationship');
 
 
 function machineModel () {
@@ -58,9 +59,9 @@ function machineModel () {
     primary_ip: { type: String },
 
     // internal fields
-    environment: { type: String, ref: 'Environment', index: true },
-    platform: { type: String, ref: 'Platform', index: true },
-    tier: { type: String, ref: 'Tier', index: true },
+    environment: { type: String, ref: 'Environment', childPath: 'machines', index: true },
+    platform: { type: String, ref: 'Platform', childPath: 'machines', index: true },
+    tier: { type: String, ref: 'Tier', childPath: 'machines', index: true },
     cfpersonas: { type: String, ref: 'CfPersonas', index: true },
     cfpersonas_mode: {
       type: String,
@@ -76,6 +77,9 @@ function machineModel () {
   }, { _id: false, versionKey: false });
 
   machineSchema.plugin(mongoose_uuid.plugin, 'Machine');
+  machineSchema.plugin(mongoose_relationship, {
+    relationshipPathName: [ 'environment', 'platform', 'tier' ]
+  });
 
   machineSchema.pre('save', function (next) {
     var machine = this;

@@ -18,8 +18,8 @@ module.exports = function (router) {
 
   router.get('/:platform_id', function (req, res) {
     Promise.props({
-      platform: Platform.findOne({ _id: req.param('platform_id') }).populate('environment').exec(),
-      tiers: Tier.find({ platform: req.param('platform_id') }).exec()
+      platform: Platform.findOne({ _id: req.param('platform_id') }).populate('environment tiers').exec(),
+      tiers: Tier.find({ platform: req.param('platform_id') }).populate('machines').exec()
     }).then(function (models) {
       res.render('platform/show', models);
     });

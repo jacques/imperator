@@ -1,32 +1,33 @@
 extends layout
 
 block content
-	h1 Index
-
 	if user
-		h3 Routes
+		#environments.panel-group
+		each environment in environments
+			.panel.panel-default
+				.panel-heading
+					h4.panel-title
+						.pull-right
+							a(href='/environment/#{environment.id}')
+								span.glyphicon.glyphicon-th-list
+						a(href='##{environment.id}', data-toggle='collapse', data-parent='#environments')
+							=environment.name
+				.panel-collapse.collapse.in(id='#{environment.id}')
+					.panel-body
+						dl
+							dt Platforms
+							each platform in environment.platforms
+								dd
+									a(href="/platform/#{platform.id}")= platform.name
+							else
+								p This environment has no platforms defined
+		.btn-group
+			a.btn.btn-default(href="/environment/new") create new environment
+
+
+		h3 Others
 		dl
 			dd
 				a(href='/cf/personas') cfEngine Personas
 			dd
 				a(href='/network') Networks
-		dl
-			dd
-				a(href='/environment') Environments
-			dd
-				a(href='/platform') Platforms
-			dd
-				a(href='/tier') Tiers
-			dd
-				a(href='/machine') Machines
-			dd
-				a(href='/stingray') Stingrays
-
-	if user
-		dl
-			dt Id
-			dd= user.id
-			dt Username
-			dd= user.username
-			dt Password
-			dd= user.password

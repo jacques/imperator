@@ -16,7 +16,7 @@ module.exports = function (router) {
 
   router.get('/', function (req, res) {
     Promise.props({
-      machines: Machine.find().sort({ name: 1 }).exec()
+      machines: Machine.find({ tier: null }).sort({ name: 1 }).exec()
     }).then(function (models) {
       res.render('machine/list', models);
     });

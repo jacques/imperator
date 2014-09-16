@@ -7,6 +7,9 @@ var smartdc = require('smartdc');
 
 function environmentModel () {
   var environmentSchema = mongoose.Schema({
+    platforms: [{ type: String, ref: 'Platform' }],
+    tiers: [{ type: String, ref: 'Tier' }],
+    machines: [{ type: String, ref: 'Machine' }],
     name: { type: String, unique: true },
     system_name: { type: String, unique: true },
     pkgcloud_options: {}
