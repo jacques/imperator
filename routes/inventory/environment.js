@@ -10,11 +10,7 @@ module.exports = function (router) {
   var Stingray = mongoose.models.Stingray;
 
   router.get('/', function (req, res) {
-    Promise.props({
-      environments: Environment.find().sort({ name: 1 }).exec()
-    }).then(function (models) {
-      res.render('environment/list', models);
-    });
+    res.redirect('/');
   });
 
   router.get('/new', function (req, res) {

@@ -13,11 +13,7 @@ module.exports = function (router) {
   var CfPersonas = mongoose.models.CfPersonas;
 
   router.get('/', function (req, res) {
-    Promise.props({
-      tiers: Tier.find().sort({ name: 1 }).exec()
-    }).then(function (models) {
-      res.render('tier/list', models);
-    });
+    res.redirect('/');
   });
 
   router.get('/new', function (req, res) {

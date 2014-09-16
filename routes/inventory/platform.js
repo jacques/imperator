@@ -9,11 +9,7 @@ module.exports = function (router) {
   var Tier = mongoose.models.Tier;
 
   router.get('/', function (req, res) {
-    Promise.props({
-      platforms: Platform.find().sort({ name: 1 }).exec()
-    }).then(function (models) {
-      res.render('platform/list', models);
-    });
+    res.redirect('/');
   });
 
   router.get('/new', function (req, res) {
