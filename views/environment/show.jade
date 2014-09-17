@@ -30,7 +30,7 @@ block content
 							span.glyphicon.glyphicon-th-list
 					a(href='##{platform.id}', data-toggle='collapse', data-parent='#platforms')
 						=platform.name
-			.panel-collapse.collapse.in(id='#{platform.id}')
+			.panel-collapse.collapse(id='#{platform.id}', class=(platform.tiers.length > 0 ? 'in' : ''))
 				.panel-body
 					dl
 						dt Tiers

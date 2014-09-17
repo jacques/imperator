@@ -12,7 +12,7 @@ block content
 								span.glyphicon.glyphicon-th-list
 						a(href='##{environment.id}', data-toggle='collapse', data-parent='#environments')
 							=environment.name
-				.panel-collapse.collapse.in(id='#{environment.id}')
+				.panel-collapse.collapse(id='#{environment.id}', class=(environment.platforms.length > 0 ? 'in' : ''))
 					.panel-body
 						dl
 							dt Platforms
