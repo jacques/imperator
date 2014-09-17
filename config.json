@@ -32,6 +32,10 @@
       "mount": "/",
       "controllers": [ "auth" ]
     },
+    "user": {
+      "mount": "/user",
+      "controllers": [ "user" ]
+    },
     "environment": {
       "mount": "/environment",
       "controllers": [ "inventory/environment" ]

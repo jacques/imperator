@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+	h1 Create user
+
+	form(action='/user', method='POST')
+		dl
+			dt Username
+			dd
+				input(type='text', name='username', value='#{user.username}')
+			dt Password
+			dd
+				input(type='password', name='password', value='')
+			dt Password (repeat)
+			dd
+				input(type='password', name='password_confirmation', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')

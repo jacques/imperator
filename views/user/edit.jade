@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+	h1 Edit user
+
+	form(action='/user/#{user.id}', method='POST')
+		dl
+			dt Username
+			dd
+				input(type='text', name='username', value='#{user.username}')
+
+		dl
+			dt New Password
+			dd
+				input(type='password', name='password', value='')
+			dt New Password (repeat)
+			dd
+				input(type='password', name='password_confirmation', value='')
+
+		.btn-group
+			input.btn.btn-default(type='submit', value='Save')
