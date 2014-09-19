@@ -42,45 +42,9 @@ The entity relationship diagram below shows the basic concepts of how Imperator 
 #### Create a ROLE
 
 
-## User
+## Users
 
-This container holds information about a user of Imperator. Examples of fields required can be seen
-in the json example below. We must also integrate DUOSEC 2FA into the security for this solution.
-The DUOSEC integration API can be found at https://www.duosecurity.com/api. Salted passwords please.
-
-Each user will have a specific SSH key which they must use to login to any boxes on a given PLATFORM. We must store these somewhere and we MUST NOT allow the same ssh key to be used in more that ONE PLATFORM.
-
-```json
-{
-  "user": {
-    "uuid": "965f91f0-e1b6-11e3-8b68-0800200c9a66",
-    "username": "",
-    "encrypted_password": "",
-    "two_factor_id": "",
-    "roles": {
-      "system_role_n": "IMPERATOR_PLATFORM_ROLES_HERE",
-    },
-    "environments": {
-      "environment_1": {
-       "roles": {
-         "system_role_1": "ENVIRONMENT_ROLES_HERE",
-       },
-      },
-      "environment_2": {
-       "roles": {
-       },
-      }
-    }
-    "platforms": {
-      "platform_uuid_1":{
-        "roles":{
-
-        }
-      }
-    }
-  }
-}
-```
+TODO: @khushil
 
 The roles are the system actions which this user is permitted to perform.
 
