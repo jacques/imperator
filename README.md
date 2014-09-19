@@ -10,6 +10,8 @@ It is to be extended as required.
 
 Don't be precious with the code. We won't be.
 
+The documentation is WORK IN PROGRESS.
+
 ## Concepts
 
 The entity relationship diagram below shows the basic concepts of how Imperator sees it's world.
