@@ -27,6 +27,11 @@ module.exports = function (router) {
     Promise.props({
       network: Network.findOne({ _id: req.param('network_id') }).populate('environment').exec()
     }).then(function (models) {
+      models.network.subnet = models.network.subnet || '';
+      models.network.broadcast = models.network.broadcast || '';
+      models.network.start_ip = models.network.start_ip || '';
+      models.network.end_ip = models.network.end_ip || '';
+
       res.render('network/edit', models);
     });
   });
@@ -37,6 +42,7 @@ module.exports = function (router) {
     }).then(function (models) {
       models.network.name = req.param('name');
       models.network.order = req.param('order');
+      models.network.hidden = req.param('hidden') == '1';
       models.network.subnet = req.param('subnet');
       models.network.broadcast = req.param('broadcast');
       models.network.start_ip = req.param('start_ip');

@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+	h1 Users
+
+	if users
+		each user in users
+			dl
+				dt Username
+				dd
+					a(href='/user/#{user.id}')= user.username
+				if user.roles.length > 0
+					dt Roles
+					dd= user.roles.join(', ')
+		.btn-group
+			a.btn.btn-default(href='/user/new') add user

@@ -10,11 +10,7 @@ module.exports = function (router) {
   var Stingray = mongoose.models.Stingray;
 
   router.get('/', function (req, res) {
-    Promise.props({
-      environments: Environment.find().sort({ name: 1 }).exec()
-    }).then(function (models) {
-      res.render('environment/list', models);
-    });
+    res.redirect('/');
   });
 
   router.get('/new', function (req, res) {
@@ -24,7 +20,7 @@ module.exports = function (router) {
   router.get('/:environment_id', function (req, res) {
     Promise.props({
       environment: Environment.findOne({ _id: req.param('environment_id') }).exec(),
-      platforms: Platform.find({ environment: req.param('environment_id') }).exec(),
+      platforms: Platform.find({ environment: req.param('environment_id') }).populate('tiers').exec(),
       stingrays: Stingray.find({ environment: req.param('environment_id') }).exec()
     }).then(function (models) {
       res.render('environment/show', models);

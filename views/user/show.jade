@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+	.btn-group.pull-right
+		a.btn.btn-danger.btn-sm(href='/user/#{user.id}', data-confirm='Delete user?', data-method='DELETE') Delete
+	.btn-group.pull-right
+		a.btn.btn-info.btn-sm(href='/user/#{user.id}/edit') Edit
+
+	h1 User
+
+	dl
+		dt Username
+		dd= user.username
+		if user.roles
+			dt Roles
+			each role in user.roles
+				dd= role
+			else
+				dd No roles attached

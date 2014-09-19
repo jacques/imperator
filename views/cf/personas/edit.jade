@@ -8,7 +8,8 @@ block content
 			dt Name
 			dd
 				input(type='text', name='name', value='#{personas.name}')
-			dt#classes Classes
+		dl.classes
+			dt Classes
 			each name in personas.classes
 				dd
 					input(type='text', name='classes[]', value='#{name}')
@@ -17,3 +18,10 @@ block content
 
 		.btn-group
 			input.btn.btn-default(type='submit', value='Save')
+
+block append body_scripts
+	script(type="text/javascript").
+		jQuery(document).on('focus', 'dl.classes > dd:last > input[name^=classes]',
+			function () {
+				jQuery(this).parent('dd').clone().appendTo('dl.classes');
+			});

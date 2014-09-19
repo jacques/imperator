@@ -12,6 +12,8 @@ block content
 						span.label.label-success public
 					else
 						span.label.label-warning private
+					if network.hidden
+						span.label.label-info hidden
 				dd
 					a(href='/network/#{network.id}')= network.id
 			else

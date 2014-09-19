@@ -36,14 +36,29 @@ block content
 				a(href='/cf/personas/#{tier.cfpersonas.id}')= tier.cfpersonas.name
 
 	h3 Machines
-	if machines.length
-		dl
-			each machine in machines
-				dd
-					a(href='/machine/#{machine.id}')= machine.name
-	else
-		p
-			strong There are no available machines
-	p
-		a.btn.btn-default(href='/machine/?environment=#{tier.environment.id}&platform=#{tier.platform.id}&tier=#{tier.id}', data-confirm='Create machine?', data-method='POST') create new machine
-		a.btn.btn-default(href='/machine/new?environment=#{tier.environment.id}&platform=#{tier.platform.id}&tier=#{tier.id}') create
+	#machines.panel-group
+	each machine in machines
+		.panel.panel-default
+			.panel-heading
+				h4.panel-title
+					.pull-right
+						a(href='/machine/#{machine.id}')
+							span.glyphicon.glyphicon-th-list
+					a(href='##{machine.id}', data-toggle='collapse', data-parent='#machines')
+						| #{machine.name}&nbsp;
+						span.label.label-info= machine.state
+			.panel-collapse.collapse(id='#{machine.id}')
+				.panel-body
+					dl
+						dt Name
+						dd= machine.name
+						dt State
+						dd= machine.state
+						dt Id
+						dd= machine.id
+						if machine.ips
+							dt Networks
+							each ip in machine.ips
+								dd= ip
+	.btn-group
+		a.btn.btn-default(href='/machine/new?environment=#{tier.environment.id}&platform=#{tier.platform.id}&tier=#{tier.id}') create new machine

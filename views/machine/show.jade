@@ -15,6 +15,9 @@ block append breadcrumbs
 block content
 	.btn-group.pull-right
 		a.btn.btn-danger.btn-sm(href='/machine/#{machine.id}', data-confirm='Delete machine?', data-method='DELETE') Delete
+	if machine.state != 'destroyed'
+		.btn-group.pull-right
+			a.btn.btn-info.btn-sm(href='/machine/#{machine.id}/edit') Edit
 
 	h1 Machine
 

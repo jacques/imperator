@@ -15,6 +15,9 @@ block content
 	dl
 		dt Name
 		dd= network.name
+		if network.hidden
+			dd
+				em hidden
 		dt Subnet
 		dd= network.subnet
 		dt Broadcast

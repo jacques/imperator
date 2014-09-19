@@ -26,13 +26,24 @@ block content
 				a(href='/environment/#{platform.environment.id}')= platform.environment.name
 
 	h3 Tiers
-	if tiers.length
-		dl
-			each tier in tiers
-				dd
-					a(href='/tier/#{tier.id}')= tier.name
-	else
-		p
-			strong There are no available tiers
-	p
-		a.btn.btn-default(href='/tier/new?environment=#{platform.environment.id}&platform=#{platform.id}') Add
+	#tiers.panel-group
+	each tier in tiers
+		.panel.panel-default
+			.panel-heading
+				h4.panel-title
+					.pull-right
+						a(href='/tier/#{tier.id}')
+							span.glyphicon.glyphicon-th-list
+					a(href='##{tier.id}', data-toggle='collapse', data-parent='#tiers')
+						=tier.name
+			.panel-collapse.collapse.in(id='#{tier.id}')
+				.panel-body
+					dl
+						dt Machines
+						each machine in tier.machines
+							dd
+								a(href="/machine/#{machine.id}")= machine.name
+						else
+							p This tier has no machines bound
+	.btn-group
+		a.btn.btn-default(href='/tier/new?environment=#{platform.environment.id}&platform=#{platform.id}') create new tier

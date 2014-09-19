@@ -20,16 +20,27 @@ block content
 		dd= environment.id
 
 	h3 Platforms
-	if platforms.length
-		dl
-			each platform in platforms
-				dd
-					a(href='/platform/#{platform.id}')= platform.name
-	else
-		p
-			strong There are no available platforms
-	p
-		a.btn.btn-default(href='/platform/new?environment=#{environment.id}') Add
+	#platforms.panel-group
+	each platform in platforms
+		.panel.panel-default
+			.panel-heading
+				h4.panel-title
+					.pull-right
+						a(href='/platform/#{platform.id}')
+							span.glyphicon.glyphicon-th-list
+					a(href='##{platform.id}', data-toggle='collapse', data-parent='#platforms')
+						=platform.name
+			.panel-collapse.collapse(id='#{platform.id}', class=(platform.tiers.length > 0 ? 'in' : ''))
+				.panel-body
+					dl
+						dt Tiers
+						each tier in platform.tiers
+							dd
+								a(href="/tier/#{tier.id}")= tier.name
+						else
+							p This platform has no tiers defined
+	.btn-group
+		a.btn.btn-default(href="/platform/new?environment=#{environment.id}") create new platform
 
 	h3 Stingrays
 	if stingrays.length
