@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Imperator by Sphonic</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Imperator</h1>
+        <h2></h2>
+        <a href="https://github.com/Sphonic/imperator" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="imperator" class="anchor" href="#imperator"><span class="octicon octicon-link"></span></a>IMPERATOR</h1>
+
+<p>This is the cloud CnC solution for sphonic clouds in the JPC and SDC environments.</p>
+
+<p>It is designed to be simple, small and flexible. Unlike OpenStack and others.</p>
+
+<p>It is written in NodeJS. It is to be extended as required. Don't be precious about it.</p>
+
+<h2>
+<a name="concepts" class="anchor" href="#concepts"><span class="octicon octicon-link"></span></a>Concepts</h2>
+
+<pre lang="asciidoc"><code>   +------+    
+   |      |    
+   | USER |    
+   |      |    
+   +---+--+    
+       |         
+       |       
++------+------+
+|             |
+| Environment |
+|             |
++------+------+
+       |            
+       |       
++------+------+
+|             |
+|  PLATFORM   |
+|             |
++------+------+
+       |          
+       |       
+    +--+---+   
+    |      |   
+    | TIER |   
+    |      |   
+    +--+---+   
+       |            
+       |       
+  +----+----+  
+  |         |  
+  | MACHINE |  
+  |         |  
+  +---------+  
+</code></pre>
+
+<h2>
+<a name="actions" class="anchor" href="#actions"><span class="octicon octicon-link"></span></a>Actions</h2>
+
+<h4>
+<a name="create-a-user" class="anchor" href="#create-a-user"><span class="octicon octicon-link"></span></a>Create a USER</h4>
+
+<h4>
+<a name="create-an-environment" class="anchor" href="#create-an-environment"><span class="octicon octicon-link"></span></a>Create an ENVIRONMENT</h4>
+
+<h4>
+<a name="create-a-platform" class="anchor" href="#create-a-platform"><span class="octicon octicon-link"></span></a>Create a PLATFORM</h4>
+
+<h4>
+<a name="create-a-tier" class="anchor" href="#create-a-tier"><span class="octicon octicon-link"></span></a>Create a TIER</h4>
+
+<h4>
+<a name="create-a-machine" class="anchor" href="#create-a-machine"><span class="octicon octicon-link"></span></a>Create a MACHINE</h4>
+
+<h4>
+<a name="create-a-persona-package" class="anchor" href="#create-a-persona-package"><span class="octicon octicon-link"></span></a>Create a PERSONA PACKAGE</h4>
+
+<h4>
+<a name="create-a-stingray-config" class="anchor" href="#create-a-stingray-config"><span class="octicon octicon-link"></span></a>Create a STINGRAY CONFIG</h4>
+
+<h4>
+<a name="create-a-bootstrap-script" class="anchor" href="#create-a-bootstrap-script"><span class="octicon octicon-link"></span></a>Create a BOOTSTRAP SCRIPT</h4>
+
+<h4>
+<a name="create-a-role" class="anchor" href="#create-a-role"><span class="octicon octicon-link"></span></a>Create a ROLE</h4>
+
+<h2>
+<a name="user" class="anchor" href="#user"><span class="octicon octicon-link"></span></a>User</h2>
+
+<p>This container holds information about a user of Imperator. Examples of fields required can be seen
+in the json example below. We must also integrate DUOSEC 2FA into the security for this solution.
+The DUOSEC integration API can be found at <a href="https://www.duosecurity.com/api">https://www.duosecurity.com/api</a>. Salted passwords please.</p>
+
+<p>Each user will have a specific SSH key which they must use to login to any boxes on a given PLATFORM. We must store these somewhere and we MUST NOT allow the same ssh key to be used in more that ONE PLATFORM.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"user"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"uuid"</span><span class="p">:</span> <span class="s2">"965f91f0-e1b6-11e3-8b68-0800200c9a66"</span><span class="p">,</span>
+    <span class="nt">"username"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="nt">"encrypted_password"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="nt">"two_factor_id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="nt">"roles"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"system_role_n"</span><span class="p">:</span> <span class="s2">"IMPERATOR_PLATFORM_ROLES_HERE"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nt">"environments"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"environment_1"</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">"roles"</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">"system_role_1"</span><span class="p">:</span> <span class="s2">"ENVIRONMENT_ROLES_HERE"</span><span class="p">,</span>
+       <span class="p">},</span>
+      <span class="p">},</span>
+      <span class="nt">"environment_2"</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">"roles"</span><span class="p">:</span> <span class="p">{</span>
+       <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="s2">"platforms"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"platform_uuid_1"</span><span class="p">:{</span>
+        <span class="nt">"roles"</span><span class="p">:{</span>
+
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>The roles are the system actions which this user is permitted to perform.</p>
+
+<ul>
+<li>Add new users</li>
+<li>Suspend users (users can be reactivated)</li>
+<li>Tombstone users (users can not be reactivated)</li>
+<li>Create Environment configuration</li>
+<li>Create Platform configurations</li>
+<li>Create Tier configurations</li>
+<li>Create Machine configurations</li>
+<li>CRUD for cfengine roles assignable to Tiers and Machines</li>
+<li>CRUD for networks on the platform</li>
+</ul><h3>
+<a name="environment" class="anchor" href="#environment"><span class="octicon octicon-link"></span></a>Environment</h3>
+
+<p>The ENVIRONMENT container holds information about a particular cloud environment. There is only
+one per environment and access is restricted by whatever is set at the USER level.</p>
+
+<p>A unique UUID identifies the particular environment to the system. It has a common name, a user
+firendly name. There is also a system name where only alphanums and the underscore character are
+allowed. A list of platform UUIDs which associate platforms with this ENVIRONMENT is also present.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"environment"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"uuid"</span><span class="p">:</span> <span class="s2">"965f91f0-e1b6-11e3-8b68-0800200c9a66"</span><span class="p">,</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"Joyent Public Cloud AMS 1"</span><span class="p">,</span>
+    <span class="nt">"system_name"</span><span class="p">:</span> <span class="s2">"joyent_public_cloud_ams_1"</span>
+    <span class="s2">"platforms"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"platform_uuid_1"</span><span class="p">:</span> <span class="s2">"uuid_here"</span><span class="p">,</span>
+      <span class="nt">"platform_uuid_n"</span><span class="p">:</span> <span class="s2">"uuid_here"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="platforms" class="anchor" href="#platforms"><span class="octicon octicon-link"></span></a>Platforms</h3>
+
+<p>The PLATFORM container holds information about a logical platform within an ENVIRONMENT. Each
+platform has a unique UUID which identifies in within Imperator. There is a common name which is
+user friendly as well as a system name which is machine friendly.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"platform"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"uuid"</span><span class="p">:</span> <span class="s2">"965f91f0-e1b6-11e3-8b68-0800200c9a66"</span><span class="p">,</span>
+    <span class="nt">"common_name"</span><span class="p">:</span> <span class="s2">"Sphonic BAU Production"</span><span class="p">,</span>
+    <span class="nt">"system_name"</span><span class="p">:</span> <span class="s2">"sphonic_bau_production"</span>
+    <span class="s2">"tiers"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"list_of_tiers_here"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="tiers" class="anchor" href="#tiers"><span class="octicon octicon-link"></span></a>Tiers</h3>
+
+<p>This configuration container holds information about the makeup of each tier within the Platform.</p>
+
+<p>It identifies the home network for the machines on this tier.</p>
+
+<p>It identifies the network ACL's for the machines on this tier.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"tier"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"uuid"</span><span class="p">:</span> <span class="s2">"965f91f0-e1b6-11e3-8b68-0800200c9a66"</span><span class="p">,</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"xml_processing_tier"</span><span class="p">,</span>
+    <span class="nt">"alias"</span><span class="p">:</span> <span class="s2">"XML Processing Tier"</span><span class="p">,</span>
+    <span class="nt">"home_network"</span><span class="p">:</span> <span class="s2">"network_uuid_here"</span><span class="p">,</span>
+    <span class="nt">"base_image"</span><span class="p">:</span> <span class="s2">"base_image_uuid"</span><span class="p">,</span>
+    <span class="nt">"personas_package"</span><span class="p">:</span> <span class="s2">"personas_package_uuid"</span><span class="p">,</span>
+    <span class="nt">"bootstrap_script"</span><span class="p">:</span> <span class="s2">"bootstrap_script_name"</span><span class="p">,</span>
+    <span class="nt">"stingray_server"</span><span class="p">:</span> <span class="s2">"stingray_uuid"</span><span class="p">,</span>
+    <span class="nt">"stingray_pool"</span><span class="p">:</span> <span class="s2">"stingray_pool_name"</span><span class="p">,</span>
+    <span class="nt">"machines"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"list_of_machines_here"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nt">"network_acls"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"inbound_open_ports"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"inbound_network_uuid"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">"port_number"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"port_name"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">"protocol"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">"port_open_reason"</span><span class="p">:</span> <span class="p">{}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">"outbound_open_ports"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"outbound_network_uuid"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">"port_number"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"port_name"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">"protocol"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">"port_open_reason"</span><span class="p">:</span> <span class="p">{}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Pull stingray pool names from the stingray machine. API <a href="https://support.riverbed.com/content/support/software/stingray/traffic-manager.html">https://support.riverbed.com/content/support/software/stingray/traffic-manager.html</a> .</p>
+
+<h3>
+<a name="machines" class="anchor" href="#machines"><span class="octicon octicon-link"></span></a>Machines</h3>
+
+<p>This configuration container holds information about the makeup of each machine witin the Tier.</p>
+
+<p>It contains information about the CFE roles assigned to this machine. CFE roles are linked to tiers.
+You cannot assing a CFE role not permitted on the tier this machine is linked to.</p>
+
+<p>It contains information about the creation of the machine.</p>
+
+<p>It contains information about any shutdown events on the machine.</p>
+
+<p>It contains information about the destruction of the machine.</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"machine"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"uuid"</span><span class="p">:</span> <span class="s2">"965f91f0-e1b6-11e3-8b68-0800200c9a66"</span><span class="p">,</span>
+    <span class="nt">"creation_information"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"created_date_time"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"created_user"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"created_method"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nt">"start_information"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"start_event_uuid"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"start_user"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"start_method"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"start_reason_given"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nt">"shutdown_information"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"shutdown_event_uuid"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"shutdown_user"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"shutdown_method"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"shutdown_reason_given"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nt">"destruction_information"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"destruction_event_uuid"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"destruction_user"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"destruction_method"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">"destruction_reason_given"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="stingray-configuration-package" class="anchor" href="#stingray-configuration-package"><span class="octicon octicon-link"></span></a>Stingray Configuration Package</h3>
+
+<p>This configuration container holds information about various stingray machines.</p>
+
+<p>Username
+Password
+API REST Endpoint
+etc.</p>
+
+<h2>
+<a name="related-work" class="anchor" href="#related-work"><span class="octicon octicon-link"></span></a>Related Work</h2>
+
+<ul>
+<li>
+<a href="http://sandervanderburg.blogspot.co.uk/2011/02/disnix-toolset-for-distributed.html">Disnix</a>. Building on the powerful Nix functional package system, Disnix has an interesting set of three models: Services, which describes the components of the distributed system including dependencies, Machines which describes the resources available to the system, and Distribution, which describes the mapping between the two.</li>
+<li>
+<a href="http://tumblr.github.io/collins/">Collins</a>, developed at Tumblr, use explained in this <a href="https://www.youtube.com/watch?v=fwGrKXzocg4?t=14m30s">Ansible at Twitter</a> talk, as a "Single Point of Truth (SPOT)" machine database.</li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/Sphonic/imperator/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Sphonic/imperator/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/Sphonic/imperator"></a> is maintained by <a href="https://github.com/Sphonic">Sphonic</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
