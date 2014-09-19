@@ -8,41 +8,12 @@ It is written in NodeJS. It is to be extended as required. Don't be precious abo
 
 ## Concepts
 
-```asciidoc
-   +------+    
-   |      |    
-   | USER |    
-   |      |    
-   +---+--+    
-       |         
-       |       
-+------+------+
-|             |
-| Environment |
-|             |
-+------+------+
-       |            
-       |       
-+------+------+
-|             |
-|  PLATFORM   |
-|             |
-+------+------+
-       |          
-       |       
-    +--+---+   
-    |      |   
-    | TIER |   
-    |      |   
-    +--+---+   
-       |            
-       |       
-  +----+----+  
-  |         |  
-  | MACHINE |  
-  |         |  
-  +---------+  
-```
+The entity relationship diagram below shows the basic concepts of how Imperator sees it's world.
+
+![alt tag](https://github.com/Sphonic/imperator/blob/master/images/Imperator%20Entity%20Relationship.jpg)
+
+#### Environment
+
 
 ## Actions
 
