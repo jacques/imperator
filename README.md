@@ -1,10 +1,14 @@
 # IMPERATOR
 
-This is the cloud CnC solution for sphonic clouds in the JPC and SDC environments.
+This application allows the command and control of SmartOS clouds with CFEngine promises.
 
-It is designed to be simple, small and flexible. Unlike OpenStack and others.
+It is designed to be simple, small and flexible.
 
-It is written in NodeJS. It is to be extended as required. Don't be precious about it.
+It is written in NodeJS.
+
+It is to be extended as required.
+
+Don't be precious with the code. We won't be.
 
 ## Concepts
 
