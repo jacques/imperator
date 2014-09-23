@@ -5,7 +5,7 @@
   "authors": [
     "Daniel Malon <danielmalon@sphonic.com>"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "ignore": [
     "**/.*",
