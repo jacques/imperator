@@ -8,6 +8,12 @@ var morgan = require('morgan');
 
 var bootstrap = require('./lib/system/bootstrap');
 
+var log = require('bunyan').createLogger({
+  name: 'imperator',
+  stream: process.stdout,
+  level: 'info'
+});
+
 var app = express();
 var options = {
   config_file: __dirname + '/config.json',
@@ -15,6 +21,13 @@ var options = {
 };
 
 app.use(morgan(options.env === 'development' ? 'dev' : 'default'));
+app.use(require('express-bunyan-logger')({
+  name: 'logger',
+  streams: [{
+    level: 'info',
+    stream: process.stdout
+  }]
+}));
 app.use('/', bootstrap(options));
 
 var server = http.createServer(app);
