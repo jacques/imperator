@@ -204,6 +204,26 @@ Password
 API REST Endpoint
 etc.
 
+## Installation
+
+NOTE: It requires mongodb to not require authentication to work at present.
+
+```
+noauth = true
+```
+
+Install dependencies using npm:
+
+```
+npm install
+```
+
+Modify config.json to your taste.
+
+```
+npm install bower
+./node_modules/.bin/bower
+```
 
 ## Related Work
 * [Disnix](http://sandervanderburg.blogspot.co.uk/2011/02/disnix-toolset-for-distributed.html). Building on the powerful Nix functional package system, Disnix has an interesting set of three models: Services, which describes the components of the distributed system including dependencies, Machines which describes the resources available to the system, and Distribution, which describes the mapping between the two.
