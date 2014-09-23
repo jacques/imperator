@@ -1,6 +1,6 @@
 # IMPERATOR
 
-This application allows the command and control of SmartOS clouds with CFEngine promises.
+This application allows the command and control of SmartOS clouds running SmartDataCenter with CFEngine promises.
 
 It is designed to be simple, small and flexible.
 
