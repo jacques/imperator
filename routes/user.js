@@ -89,9 +89,9 @@ module.exports = function (router) {
 
       models.user.save(function (err) {
         if (err) {
-          req.flash('error', 'User "%s" could not be saved', models.user.name);
+          req.flash('error', 'User "%s" could not be saved', models.user.username);
         } else {
-          req.flash('success', 'User "%s" has been saved', models.user.name);
+          req.flash('success', 'User "%s" has been saved', models.user.username);
         }
 
         res.redirect('/user/' + models.user.id);
