@@ -4,7 +4,6 @@ var http = require('http');
 
 var Promise = require('bluebird');
 var express = require('express');
-var morgan = require('morgan');
 
 var bootstrap = require('./lib/system/bootstrap');
 
@@ -20,7 +19,6 @@ var options = {
   env: process.env.NODE_ENV || 'development'
 };
 
-app.use(morgan(options.env === 'development' ? 'dev' : 'default'));
 app.use(require('express-bunyan-logger')({
   name: 'logger',
   streams: [{

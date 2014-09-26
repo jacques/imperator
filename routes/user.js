@@ -45,6 +45,13 @@ module.exports = function (router) {
       password: req.param('password')
     });
 
+    if (user.password.length < 10) {
+      req.flash('error', 'password needs to be at least 10 characters long');
+
+      res.redirect('/user/new');
+      return;
+    }
+
     if (user.password.length > 0 &&
         req.param('password') !== req.param('password_confirmation')) {
       req.flash('error', 'password and confirmation must match');
@@ -77,6 +84,13 @@ module.exports = function (router) {
       models.user.username = req.param('username');
 
       if (req.param('password')) {
+        if (req.param('password').length < 10) {
+          req.flash('error', 'password needs to be at least 10 characters long');
+
+          res.redirect('/user/' + req.param('user_id') + '/edit');
+          return;
+        }
+
         if (req.param('password') !== req.param('password_confirmation')) {
           req.flash('error', 'password and confirmation must match');
 
@@ -89,9 +103,9 @@ module.exports = function (router) {
 
       models.user.save(function (err) {
         if (err) {
-          req.flash('error', 'User "%s" could not be saved', models.user.name);
+          req.flash('error', 'User "%s" could not be saved', models.user.username);
         } else {
-          req.flash('success', 'User "%s" has been saved', models.user.name);
+          req.flash('success', 'User "%s" has been saved', models.user.username);
         }
 
         res.redirect('/user/' + models.user.id);

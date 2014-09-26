@@ -3,9 +3,9 @@
   "main": "index.js",
   "version": "0.0.1",
   "authors": [
-    "Daniel Malon <danielmalon@sphonic.com"
+    "Daniel Malon <danielmalon@sphonic.com>"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "ignore": [
     "**/.*",
