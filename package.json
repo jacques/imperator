@@ -42,6 +42,6 @@
   },
   "devDependencies": {
     "jshint": "=2.5.1",
-    "nodeunit": "0.9.1"
+    "nodeunit": "=0.9.0"
   }
 }
