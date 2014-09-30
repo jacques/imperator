@@ -5,3 +5,5 @@ before_script:
   - 'npm install -g bower'
   - 'npm install'
   - 'bower install'
+notifications:
+  irc: "irc.freenode.net#imperator"
