@@ -31,7 +31,7 @@
     "mongoose": "=3.8.x",
     "mongoose-relationship": "0.0.6",
     "mongoose-uuid": "0.0.2",
-    "passport": "=0.2.0",
+    "passport": "=0.6.0",
     "passport-local": "=1.0.0",
     "request": "=2.36.0",
     "serve-favicon": "=2.0.1",
